@@ -10,8 +10,8 @@ class CitySearchDataSource(
     private val repo : Repository,
     private val name : String
 ) : PagingSource<Int,City>() {
-    override fun getRefreshKey(state: PagingState<Int, City>): Int? {
-        return 1
+    override fun getRefreshKey(state: PagingState<Int, City>): Int {
+        return 0
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, City> {
@@ -20,8 +20,8 @@ class CitySearchDataSource(
            val response = repo.searchCity(name)
            return LoadResult.Page(
                data = response?.body()?.results ?: emptyList(),
-               prevKey = if (nextPageNumber == 1) null else nextPageNumber - 1,
-               nextKey = if (response?.body()?.results?.isEmpty() == true) null else nextPageNumber + 1
+               prevKey = null,
+               nextKey = null
            )
        }catch (e : Exception){
            return LoadResult.Error(e)

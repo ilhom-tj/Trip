@@ -63,10 +63,9 @@ class CitiesFragment : Fragment() {
         })
 
         searchQuery.debounce(1000).observe(viewLifecycleOwner) {
-            Log.e("dsads",it)
-//            CoroutineScope(Dispatchers.IO).launch {
-//                viewModel.search(it).collect(cityListAdapter::submitData)
-//            }
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.search(it).collect(cityListAdapter::submitData)
+            }
         }
     }
 
