@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Trip</string>
+    <string name="choose_city">Выберите город</string>
+</resources>
