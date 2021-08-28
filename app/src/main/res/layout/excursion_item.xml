@@ -3,6 +3,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_constraintDimensionRatio="16:9">
 
@@ -25,9 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-
             app:layout_constraintTop_toTopOf="parent"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:maxLines="2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +51,7 @@
             app:layout_constraintStart_toStartOf="parent">
         <TextView
                 android:id="@+id/review_qty"
-                android:textSize="23sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"
                 android:text="8.9 - 2123 отзыва"
                 android:layout_width="wrap_content"
@@ -78,7 +80,7 @@
             android:textColor="@color/white"
             android:text="Организатор:"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -89,23 +91,19 @@
             android:textColor="@color/white"
             android:text="Тимур"
             android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/guide"
             app:layout_constraintStart_toEndOf="@+id/guide" app:layout_constraintTop_toTopOf="@+id/guide"/>
     <TextView
             android:id="@+id/guide_duration"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:text="3,5 часа"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/guide_name"
             android:layout_marginEnd="35dp"
-            app:layout_constraintTop_toTopOf="@+id/guide"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/excurse_price"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

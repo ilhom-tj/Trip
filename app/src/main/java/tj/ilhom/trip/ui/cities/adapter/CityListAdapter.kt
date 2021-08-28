@@ -15,7 +15,8 @@ import tj.ilhom.trip.R
 import tj.ilhom.trip.models.city.City
 
 class CityListAdapter(
-    fragment : Fragment
+    fragment : Fragment,
+    private val cityEvents: CityEvents
 ) :
     PagingDataAdapter<City, CityListAdapter.ProductsViewHolder>(diffUtil) {
 
@@ -43,6 +44,11 @@ class CityListAdapter(
         Log.e("CITY",city?.name_ru.toString())
         holder.cityName.text = city?.name_ru
         holder.locationQty.text = city?.experience_count.toString()
+        holder.itemView.setOnClickListener {
+            if (city != null) {
+                cityEvents.cityOnClick(city)
+            }
+        }
     }
 
     companion object {

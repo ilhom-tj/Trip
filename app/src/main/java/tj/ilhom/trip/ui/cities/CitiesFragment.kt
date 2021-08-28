@@ -3,13 +3,13 @@ package tj.ilhom.trip.ui.cities
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,9 +17,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.Utils.debounce
 import tj.ilhom.trip.databinding.CitiesFragmentBinding
+import tj.ilhom.trip.models.city.City
+import tj.ilhom.trip.ui.cities.adapter.CityEvents
 import tj.ilhom.trip.ui.cities.adapter.CityListAdapter
 
-class CitiesFragment : Fragment() {
+class CitiesFragment : Fragment(), CityEvents {
 
 
     private lateinit var viewModel: CitiesViewModel
@@ -38,7 +40,7 @@ class CitiesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(CitiesViewModel::class.java)
-        cityListAdapter = CityListAdapter(this)
+        cityListAdapter = CityListAdapter(this, this)
         binding.cityList.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.cityList.adapter = cityListAdapter
 
@@ -67,6 +69,11 @@ class CitiesFragment : Fragment() {
                 viewModel.search(it).collect(cityListAdapter::submitData)
             }
         }
+    }
+
+    override fun cityOnClick(city: City) {
+        val action = CitiesFragmentDirections.actionCitiesFragmentToExcurseFragment2(city)
+        findNavController().navigate(action)
     }
 
 }

@@ -5,5 +5,11 @@
             app:startDestination="@id/citiesFragment">
 
     <fragment android:id="@+id/citiesFragment" android:name="tj.ilhom.trip.ui.cities.CitiesFragment"
-              android:label="cities_fragment" tools:layout="@layout/cities_fragment"/>
+              android:label="cities_fragment" tools:layout="@layout/cities_fragment">
+        <action android:id="@+id/action_citiesFragment_to_excurseFragment2" app:destination="@id/excurseFragment"/>
+    </fragment>
+    <fragment android:id="@+id/excurseFragment" android:name="tj.ilhom.trip.ui.excurse.ExcurseFragment"
+              android:label="excurse_fragment" tools:layout="@layout/excurse_fragment">
+        <argument android:name="city" app:argType="tj.ilhom.trip.models.city.City"/>
+    </fragment>
 </navigation>
