@@ -2,14 +2,14 @@ package tj.ilhom.trip.ui.cities
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import tj.ilhom.trip.models.City
+import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.network.Repository
 import java.lang.Exception
 
 class CitySearchDataSource(
     private val repo : Repository,
     private val name : String
-) : PagingSource<Int,City>() {
+) : PagingSource<Int, City>() {
     override fun getRefreshKey(state: PagingState<Int, City>): Int {
         return 0
     }

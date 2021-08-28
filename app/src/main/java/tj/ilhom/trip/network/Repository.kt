@@ -1,12 +1,8 @@
 package tj.ilhom.trip.network
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
-import tj.ilhom.trip.models.City
-import tj.ilhom.trip.models.CityResponse
+import tj.ilhom.trip.models.city.CityResponse
 import javax.inject.Inject
 
 class Repository @Inject constructor(

@@ -1,7 +1,7 @@
 package tj.ilhom.trip.network
 
 import retrofit2.Response
-import tj.ilhom.trip.models.CityResponse
+import tj.ilhom.trip.models.city.CityResponse
 import javax.inject.Inject
 
 class APIHelperImpl @Inject constructor(

@@ -1,4 +1,4 @@
-package tj.ilhom.trip.models
+package tj.ilhom.trip.models.city
 
 data class City(
     val ascii_name: String,

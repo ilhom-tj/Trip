@@ -1,9 +1,7 @@
 package tj.ilhom.trip.network
 
-import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.Response
-import tj.ilhom.trip.models.CityResponse
+import tj.ilhom.trip.models.city.CityResponse
 
 interface APIHelper {
     suspend fun getCities(page : Int): Response<CityResponse>

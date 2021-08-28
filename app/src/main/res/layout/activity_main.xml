@@ -10,8 +10,8 @@
 
     <androidx.fragment.app.FragmentContainerView
             android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="409dp"
-            android:layout_height="729dp" app:navGraph="@navigation/nav_graph" app:defaultNavHost="true"
-            tools:layout_editor_absoluteY="1dp" tools:layout_editor_absoluteX="1dp"
-            android:id="@+id/fragmentContainerView"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" app:navGraph="@navigation/nav_graph" app:defaultNavHost="true"
+            tools:layout_editor_absoluteX="1dp"
+            android:id="@+id/fragmentContainerView" app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
