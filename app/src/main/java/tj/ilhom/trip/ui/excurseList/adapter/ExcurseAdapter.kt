@@ -1,4 +1,4 @@
-package tj.ilhom.trip.ui.cities.adapter
+package tj.ilhom.trip.ui.excurseList.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import tj.ilhom.trip.R
 import tj.ilhom.trip.models.excurse.Excurse
 
 class ExcurseAdapter(
-    fragment: Fragment
+    fragment: Fragment,
+    private val excursionEvent: ExcursionEvent
 ) :
     PagingDataAdapter<Excurse, ExcurseAdapter.ExcurseViewHolder>(diffUtil) {
 
@@ -39,7 +41,7 @@ class ExcurseAdapter(
 
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "CheckResult")
     override fun onBindViewHolder(holder: ExcurseViewHolder, position: Int) {
         val excurse: Excurse? = getItem(position)
         holder.excurseName.text = excurse?.title
@@ -47,6 +49,15 @@ class ExcurseAdapter(
         holder.excursePrice.text = "${excurse?.price?.value} ₽"
         holder.excureseGuideName.text = "${excurse?.guide?.first_name}"
         holder.excurseDuration.text = "${excurse?.duration} часа"
+        Glide.with(holder.itemView.context)
+            .load(excurse?.photos?.get(0)?.thumbnail)
+            .into(holder.backgroundImage)
+
+        holder.itemView.setOnClickListener {
+            if (excurse != null) {
+                excursionEvent.excursionClick(excurse)
+            }
+        }
     }
 
     companion object {

@@ -12,10 +12,6 @@ import tj.ilhom.trip.Utils.BackgroundChanger
 
 class ExcursionFilterFragment : BottomSheetDialogFragment() {
 
-    companion object {
-        fun newInstance() = ExcursionFilterFragment()
-    }
-
     private lateinit var viewModel: ExcursionFilterViewModel
 
     override fun onCreateView(
@@ -25,11 +21,12 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.excursion_filter_fragment, container, false)
     }
 
+    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         BackgroundChanger.setWindowTransparent(this)
         viewModel = ViewModelProvider(this).get(ExcursionFilterViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
 }

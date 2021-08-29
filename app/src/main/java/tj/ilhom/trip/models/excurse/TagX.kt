@@ -1,5 +1,9 @@
 package tj.ilhom.trip.models.excurse
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class TagX(
     val id: Int,
     val is_attraction: Boolean,
@@ -8,4 +12,4 @@ data class TagX(
     val is_hidden: Boolean,
     val name: String,
     val slug: String
-)
+):Parcelable

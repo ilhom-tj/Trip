@@ -1,4 +1,4 @@
-package tj.ilhom.trip.ui.excurse
+package tj.ilhom.trip.ui.excurseList
 
 import android.os.Bundle
 import android.text.Editable
@@ -17,15 +17,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.Utils.debounce
-import tj.ilhom.trip.databinding.ExcurseFragmentBinding
-import tj.ilhom.trip.ui.cities.adapter.ExcurseAdapter
+import tj.ilhom.trip.databinding.ExcursionListFragmentBinding
+import tj.ilhom.trip.models.excurse.Excurse
+import tj.ilhom.trip.ui.excurseList.adapter.ExcurseAdapter
+import tj.ilhom.trip.ui.excurseList.adapter.ExcursionEvent
 
-class ExcursionFragment : Fragment() {
+class ExcursionListFragment : Fragment(), ExcursionEvent {
 
 
-    private lateinit var viewModel: ExcursionViewModel
-    private lateinit var binding: ExcurseFragmentBinding
-    private val args: ExcursionFragmentArgs by navArgs()
+    private lateinit var viewModel: ExcursionListViewModel
+    private lateinit var binding: ExcursionListFragmentBinding
+    private val args: ExcursionListFragmentArgs by navArgs()
     private lateinit var excurseAdapter: ExcurseAdapter
     private val searchQuery = MutableLiveData<String>()
 
@@ -33,17 +35,17 @@ class ExcursionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ExcurseFragmentBinding.inflate(inflater, container, false)
+        binding = ExcursionListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ExcursionViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(ExcursionListViewModel::class.java)
         binding.excurseCity.text = args.city.name_ru
 
-        excurseAdapter = ExcurseAdapter(this)
+        excurseAdapter = ExcurseAdapter(this, this)
         binding.excursionList.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.excursionList.adapter = excurseAdapter
 
@@ -68,15 +70,21 @@ class ExcursionFragment : Fragment() {
 
         searchQuery.debounce(1000).observe(viewLifecycleOwner) { query ->
             CoroutineScope(Dispatchers.IO).launch {
-                viewModel.searchExcursion(1,city = args.city,query)
+                viewModel.searchExcursion(1, city = args.city, query)
                     .collect(excurseAdapter::submitData)
             }
         }
 
         binding.filters.setOnClickListener {
-            val action = ExcursionFragmentDirections.actionExcurseFragmentToExcursionFilterFragment()
+            val action = ExcursionListFragmentDirections.actionExcurseFragmentToExcursionFilterFragment()
             findNavController().navigate(action)
         }
+    }
+
+    override fun excursionClick(excurse: Excurse) {
+        val action = ExcursionListFragmentDirections
+            .actionExcurseFragmentToExcursionFragment(excurse)
+        findNavController().navigate(action)
     }
 
 

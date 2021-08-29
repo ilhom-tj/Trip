@@ -1,5 +1,9 @@
 package tj.ilhom.trip.models.excurse
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Country(
     val currency: String,
     val experience_count: Int,
@@ -9,4 +13,4 @@ data class Country(
     val name_ru: String,
     val region: String,
     val url: String
-)
+):Parcelable

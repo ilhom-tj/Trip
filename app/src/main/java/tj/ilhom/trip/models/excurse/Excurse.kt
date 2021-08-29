@@ -1,5 +1,9 @@
 package tj.ilhom.trip.models.excurse
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Excurse(
     val child_friendly: Boolean,
     val city: City,
@@ -25,4 +29,4 @@ data class Excurse(
     val title: String,
     val type: String,
     val url: String
-)
+):Parcelable

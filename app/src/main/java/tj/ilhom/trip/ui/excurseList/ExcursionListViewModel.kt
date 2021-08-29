@@ -1,4 +1,4 @@
-package tj.ilhom.trip.ui.excurse
+package tj.ilhom.trip.ui.excurseList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,15 +8,13 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.Query
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.network.Repository
-import tj.ilhom.trip.ui.cities.CityDataSource
 import javax.inject.Inject
 
 @HiltViewModel
-class ExcursionViewModel @Inject constructor(
+class ExcursionListViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
