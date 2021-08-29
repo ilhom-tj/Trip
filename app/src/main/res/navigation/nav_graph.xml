@@ -8,8 +8,16 @@
               android:label="cities_fragment" tools:layout="@layout/cities_fragment">
         <action android:id="@+id/action_citiesFragment_to_excurseFragment2" app:destination="@id/excurseFragment"/>
     </fragment>
-    <fragment android:id="@+id/excurseFragment" android:name="tj.ilhom.trip.ui.excurse.ExcurseFragment"
+    <fragment android:id="@+id/excurseFragment" android:name="tj.ilhom.trip.ui.excurse.ExcursionFragment"
               android:label="excurse_fragment" tools:layout="@layout/excurse_fragment">
         <argument android:name="city" app:argType="tj.ilhom.trip.models.city.City"/>
+        <action android:id="@+id/action_excurseFragment_to_excursionFilterFragment"
+                app:destination="@id/excursionFilterFragment"/>
     </fragment>
+    <dialog android:id="@+id/excursionFilterFragment"
+            android:name="tj.ilhom.trip.ui.excurseFilter.ExcursionFilterFragment"
+            android:label="excursion_filter_fragment" tools:layout="@layout/excursion_filter_fragment">
+        <action android:id="@+id/action_excursionFilterFragment_to_excurseFragment"
+                app:destination="@id/excurseFragment"/>
+    </dialog>
 </navigation>

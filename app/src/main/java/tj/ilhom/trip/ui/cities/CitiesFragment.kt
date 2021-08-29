@@ -46,7 +46,7 @@ class CitiesFragment : Fragment(), CityEvents {
 
 
         CoroutineScope(Dispatchers.IO).launch {
-            viewModel.getCities(1).collect(cityListAdapter::submitData)
+            viewModel.getCities().collect(cityListAdapter::submitData)
         }
 
         binding.editSearchCity.addTextChangedListener(object : TextWatcher {

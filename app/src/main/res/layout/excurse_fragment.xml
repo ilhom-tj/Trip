@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        tools:context=".ui.excurse.ExcurseFragment">
+        tools:context=".ui.excurse.ExcursionFragment">
 
 
     <TextView
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="@+id/excurse_city"
             app:layout_constraintBottom_toBottomOf="@+id/excurse_city"/>
     <EditText
-            android:id="@+id/edit_search_city"
+            android:id="@+id/edit_search_excursion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -54,15 +54,14 @@
             app:layout_constraintTop_toBottomOf="@id/excurse_city"/>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/city_list"
+            android:id="@+id/excursion_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:nestedScrollingEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_search_city"
+            app:layout_constraintTop_toBottomOf="@+id/edit_search_excursion"
 
             tools:listitem="@layout/excursion_item"/>
 
