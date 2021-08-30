@@ -1,6 +1,7 @@
 package tj.ilhom.trip.ui.excursion
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,10 +74,14 @@ class ExcursionFragment : Fragment() {
             reviewRating.text = args.excurse.rating.toString()
             ratingBar.rating = args.excurse.rating.toFloat()
             reviewQty.text = args.excurse.review_count.toString() + " отзыва"
-            description.text = args.excurse.tagline
+            description.text = args.excurse.annotation
             duration.text = args.excurse.duration.toString() + " часа"
             groupQty.text = "До " + args.excurse.max_persons.toString() + " человек"
             standardPrice.text = args.excurse.price.value.toString() + " ₽"
+            binding.showMore.setOnClickListener {
+                val action = ExcursionFragmentDirections.actionExcursionFragmentToDescriptionFragment(args.excurse)
+                findNavController().navigate(action)
+            }
             if (args.excurse.child_friendly) {
                 child.text = "Можно с детьми"
             } else {

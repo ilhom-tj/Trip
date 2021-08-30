@@ -13,5 +13,6 @@ data class Guide(
     val links: Links,
     val rating: Double,
     val review_count: Int,
-    val url: String
+    val url: String,
+    val description: String
 ):Parcelable

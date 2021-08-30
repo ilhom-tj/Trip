@@ -21,7 +21,8 @@ interface API {
     @GET("/api/experiences/")
     suspend fun getExperiences(
         @Query("page") page: Int,
-        @Query("city") cityId : Int
+        @Query("city") cityId : Int,
+        @Query("detailed") detailed : Boolean = true
     ):Response<ExcurseResponse>
 
     @GET("/api/search/experiences/")
@@ -29,6 +30,7 @@ interface API {
         @Query("page") page: Int,
         @Query("page_size") size : Int = 10,
         @Query("city") city : Int,
-        @Query("query") query : String
+        @Query("query") query : String,
+        @Query("detailed") detailed : Boolean = true
     ):Response<ExcurseResponse>
 }

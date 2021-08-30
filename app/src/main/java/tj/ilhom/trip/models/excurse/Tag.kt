@@ -9,12 +9,12 @@ data class Tag(
     val extra_header: String,
     val header: String,
     val id: Int,
-    val image: ImageX,
+    val image: Image,
     val is_hidden: Boolean,
     val name: String,
     val review_count: Int,
     val slug: String,
-    val tag: TagX,
+    val tag: Tag,
     val title: String,
     val url: String
 ):Parcelable
