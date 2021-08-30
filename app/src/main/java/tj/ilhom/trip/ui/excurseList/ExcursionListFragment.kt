@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -49,7 +50,8 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
         binding.excursionList.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.excursionList.adapter = excurseAdapter
 
-        CoroutineScope(Dispatchers.IO).launch {
+        val mass = emptyList<Excurse>()
+        lifecycleScope.launch {
             viewModel.getExcursion(args.city).collect(excurseAdapter::submitData)
         }
 
