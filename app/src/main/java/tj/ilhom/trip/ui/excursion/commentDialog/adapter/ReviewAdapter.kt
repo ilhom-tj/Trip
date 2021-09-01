@@ -39,7 +39,7 @@ class ReviewAdapter(
         val reviewBody: TextView = view.findViewById(R.id.review_body)
         val date: TextView = view.findViewById(R.id.review_date)
         val guideLay: ConstraintLayout = view.findViewById(R.id.guide_answer_layout)
-        val guideAvatar: CircleImageView = view.findViewById(R.id.guide_avatar)
+        val guideAvatar: CircleImageView = view.findViewById(R.id.guide_photo)
         val guideName: TextView = view.findViewById(R.id.guide_name)
         val guideReviewBody: TextView = view.findViewById(R.id.guide_review_body)
 
@@ -48,6 +48,7 @@ class ReviewAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         val review: Review? = getItem(position)
+
         Log.e(review?.name , review?.created_on.toString())
         holder.authorName.text = review?.name
         holder.reviewBody.text = review?.text

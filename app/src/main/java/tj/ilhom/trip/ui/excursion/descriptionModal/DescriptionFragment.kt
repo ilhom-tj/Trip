@@ -47,8 +47,8 @@ class DescriptionFragment : BottomSheetDialogFragment() {
                 }
             }
 
-            Glide.with(requireActivity())
-                .load(args.excursion.guide.avatar.medium)
+            Glide.with(requireContext())
+                .load(args.excursion.guide.avatar.small)
                 .addListener(object :  RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,

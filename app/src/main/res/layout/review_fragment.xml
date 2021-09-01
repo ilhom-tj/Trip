@@ -20,7 +20,7 @@
             android:background="@drawable/search_view_border"
             android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/user_photo" app:layout_constraintTop_toTopOf="@+id/user_photo"
-            app:layout_constraintBottom_toBottomOf="@+id/user_photo">
+            app:layout_constraintBottom_toBottomOf="@+id/user_photo" android:id="@+id/constraintLayout">
         <EditText
                 android:hint="Оставьте отзыв"
                 android:layout_width="0dp"
@@ -42,6 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/imageView3"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
             android:text="47 отзывов"
             android:layout_marginTop="16dp"
@@ -53,9 +54,8 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reviews"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp"
             tools:listitem="@layout/review_item"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView4"/>

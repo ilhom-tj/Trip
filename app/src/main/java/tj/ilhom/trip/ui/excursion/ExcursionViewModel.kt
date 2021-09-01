@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import tj.ilhom.trip.models.excurse.Excurse
+import tj.ilhom.trip.models.review.ReviewResponse
 import tj.ilhom.trip.network.Repository
 import javax.inject.Inject
 
@@ -14,4 +15,8 @@ class ExcursionViewModel @Inject constructor(
     fun getExcursion(id: Int): LiveData<Excurse> {
         return repository.getExcursion(id)
     }
+
+//     fun getReviews(id: Int): LiveData<ReviewResponse> {
+//        return repository.getReviews(id)
+//    }
 }

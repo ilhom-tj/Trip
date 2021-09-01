@@ -37,6 +37,6 @@
     </dialog>
     <dialog android:id="@+id/reviewFragment" android:name="tj.ilhom.trip.ui.excursion.commentDialog.ReviewFragment"
               android:label="review_fragment" tools:layout="@layout/review_fragment">
-        <argument android:name="excurseID" app:argType="integer"/>
+        <argument android:name="excurseId" app:argType="integer"/>
     </dialog>
 </navigation>

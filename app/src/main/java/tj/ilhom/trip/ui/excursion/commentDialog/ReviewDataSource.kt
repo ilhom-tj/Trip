@@ -3,6 +3,7 @@ package tj.ilhom.trip.ui.excursion.commentDialog
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import retrofit2.HttpException
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.models.city.CityResponse
 import tj.ilhom.trip.models.review.Review
@@ -31,19 +32,23 @@ class ReviewDataSource(
                 data = response?.results ?: emptyList(),
                 prevKey = response?.getPrevPageNumber(),
                 nextKey = response?.getNextPageNumber()
-            )
+                )
         } catch (e: Exception) {
+            Log.e("Exception",e.message.toString())
             LoadResult.Error(e)
+        }catch (http : HttpException){
+            Log.e("Exception",http.message.toString())
+            LoadResult.Error(http)
         }
     }
 
     private fun ReviewResponse.getNextPageNumber() = next
-        .substringBefore("&page_size=")
-        .substringAfter("?page=")
-        .toIntOrNull()
+        ?.substringBefore("&page_size=")
+        ?.substringAfter("?page=")
+        ?.toIntOrNull()
 
     private fun ReviewResponse.getPrevPageNumber() = previous
         ?.substringBefore("&page_size=")
-        .substringAfter("?page=")
-        .toIntOrNull()
+        ?.substringAfter("?page=")
+        ?.toIntOrNull()
 }

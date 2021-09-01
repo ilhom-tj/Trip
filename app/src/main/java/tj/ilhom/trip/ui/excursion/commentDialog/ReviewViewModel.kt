@@ -1,12 +1,10 @@
 package tj.ilhom.trip.ui.excursion.commentDialog
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
+import androidx.paging.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import tj.ilhom.trip.models.review.Review
@@ -30,6 +28,6 @@ class ReviewViewModel @Inject constructor(
                     id = excurseId
                 )
             },
-        ).flow.cachedIn(viewModelScope)
+        ).flow
     }
 }

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import tj.ilhom.trip.databinding.ExcursionFragmentBinding
 import tj.ilhom.trip.models.excurse.PerPerson
 import tj.ilhom.trip.models.excurse.Photo
+import tj.ilhom.trip.models.review.Review
 import tj.ilhom.trip.ui.excursion.adapter.PerPersonAdapter
 import tj.ilhom.trip.ui.excursion.adapter.PicturesAdapter
 
@@ -38,10 +39,15 @@ class ExcursionFragment : Fragment() {
     }
 
     val arrayOfPhoto = arrayListOf<Photo>()
-
+    val arrayOfReview = arrayListOf<Review>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ExcursionViewModel::class.java)
+
+//        viewModel.getReviews(args.excurse.id).observe(viewLifecycleOwner) {
+//            Log.e("IT",it.results.size.toString())
+//            arrayOfReview.addAll(it.results)
+//        }
 
         viewModel.getExcursion(args.excurse.id).observe(viewLifecycleOwner) { excursion ->
             excursion.let {
@@ -56,7 +62,8 @@ class ExcursionFragment : Fragment() {
                 } else if (excursion.price.per_group != null) {
                     val price =
                         excursion.price.per_group.value?.let { it1 ->
-                            PerPerson(0.0, excursion.price.unit_string, false,
+                            PerPerson(
+                                0.0, excursion.price.unit_string, false,
                                 it1
                             )
                         }
