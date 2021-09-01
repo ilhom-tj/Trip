@@ -7,6 +7,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.models.excurse.Excurse
@@ -30,7 +32,7 @@ class ExcursionListViewModel @Inject constructor(
                     cityId = city.id
                 )
             },
-        ).flow.cachedIn(viewModelScope)
+        ).flow
     }
     fun searchExcursion(page: Int, city: City,query: String): Flow<PagingData<Excurse>> {
         return Pager(
@@ -45,6 +47,6 @@ class ExcursionListViewModel @Inject constructor(
                     query = query
                 )
             },
-        ).flow.cachedIn(viewModelScope)
+        ).flow.cachedIn(CoroutineScope(Dispatchers.IO))
     }
 }

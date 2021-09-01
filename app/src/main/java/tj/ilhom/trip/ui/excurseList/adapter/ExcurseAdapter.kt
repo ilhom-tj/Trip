@@ -46,7 +46,13 @@ class ExcurseAdapter(
         val excurse: Excurse? = getItem(position)
         holder.excurseName.text = excurse?.title
         holder.excurseReview.text = "${excurse?.rating} - ${excurse?.review_count} отзыва"
-        holder.excursePrice.text = "${excurse?.price?.value} ₽"
+        if (excurse?.price?.per_person?.isNotEmpty() == true) {
+            holder.excursePrice.text = "${excurse.price.per_person[0].value} ₽"
+        } else if (excurse?.price?.per_group != null) {
+            holder.excursePrice.text = "${excurse.price.per_group.value} ₽"
+        }else{
+            holder.excursePrice.text = "${excurse?.price?.value} ₽"
+        }
         holder.excureseGuideName.text = "${excurse?.guide?.first_name}"
         holder.excurseDuration.text = "${excurse?.duration} часа"
         Glide.with(holder.itemView.context)

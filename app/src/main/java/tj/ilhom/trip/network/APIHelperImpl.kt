@@ -1,8 +1,11 @@
 package tj.ilhom.trip.network
 
+import retrofit2.Call
 import retrofit2.Response
 import tj.ilhom.trip.models.city.CityResponse
+import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.excurse.ExcurseResponse
+import tj.ilhom.trip.models.review.ReviewResponse
 import javax.inject.Inject
 
 class APIHelperImpl @Inject constructor(
@@ -31,6 +34,14 @@ class APIHelperImpl @Inject constructor(
             city = city,
             query = query
         )
+    }
+
+    override fun getExcursion(id: Int): Call<Excurse> {
+        return apiService.getExcursion(id)
+    }
+
+    override suspend fun getExcursionReviews(excurse: Int,page:Int): Response<ReviewResponse> {
+        return apiService.getExcursionReviews(excurse,page)
     }
 
 

@@ -28,10 +28,15 @@
         <argument android:name="excurse" app:argType="tj.ilhom.trip.models.excurse.Excurse"/>
         <action android:id="@+id/action_excursionFragment_to_descriptionFragment"
                 app:destination="@id/descriptionFragment"/>
+        <action android:id="@+id/action_excursionFragment_to_reviewFragment" app:destination="@id/reviewFragment"/>
     </fragment>
     <dialog android:id="@+id/descriptionFragment"
               android:name="tj.ilhom.trip.ui.excursion.descriptionModal.DescriptionFragment"
               android:label="description_fragment" tools:layout="@layout/description_fragment">
         <argument android:name="excursion" app:argType="tj.ilhom.trip.models.excurse.Excurse"/>
+    </dialog>
+    <dialog android:id="@+id/reviewFragment" android:name="tj.ilhom.trip.ui.excursion.commentDialog.ReviewFragment"
+              android:label="review_fragment" tools:layout="@layout/review_fragment">
+        <argument android:name="excurseID" app:argType="integer"/>
     </dialog>
 </navigation>

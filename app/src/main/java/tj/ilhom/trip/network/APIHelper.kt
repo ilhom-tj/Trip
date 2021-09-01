@@ -1,8 +1,11 @@
 package tj.ilhom.trip.network
 
+import retrofit2.Call
 import retrofit2.Response
 import tj.ilhom.trip.models.city.CityResponse
+import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.excurse.ExcurseResponse
+import tj.ilhom.trip.models.review.ReviewResponse
 
 interface APIHelper {
     suspend fun getCities(page: Int): Response<CityResponse>
@@ -11,5 +14,7 @@ interface APIHelper {
     suspend fun getExcursions(page: Int, city: Int): Response<ExcurseResponse>
     suspend fun searchExcursion(page: Int, city: Int, query: String): Response<ExcurseResponse>
 
+    fun getExcursion(id: Int): Call<Excurse>
 
+    suspend fun getExcursionReviews(excurse: Int,page: Int) : Response<ReviewResponse>
 }

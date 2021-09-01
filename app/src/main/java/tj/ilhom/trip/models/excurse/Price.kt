@@ -9,6 +9,8 @@ data class Price(
     val currency_rate: Double,
     val discount: Discount,
     val price_from: Boolean,
+    val per_person : List<PerPerson> = emptyList(),
+    val per_group : PerGroup,
     val unit_string: String,
     val value: Double,
     val value_string: String

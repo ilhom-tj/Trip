@@ -14,7 +14,7 @@ data class Tag(
     val name: String,
     val review_count: Int,
     val slug: String,
-    val tag: Tag,
+    val tag: Tag?,
     val title: String,
     val url: String
 ):Parcelable

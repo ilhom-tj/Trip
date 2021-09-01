@@ -1,9 +1,15 @@
 package tj.ilhom.trip.network
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import tj.ilhom.trip.models.city.CityResponse
+import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.excurse.ExcurseResponse
+import tj.ilhom.trip.models.review.ReviewResponse
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -50,6 +56,33 @@ class Repository @Inject constructor(
                 query = query
             )
         } catch (e: Exception) {
+            Log.e("Exeption", e.message.toString())
+            return null
+        }
+    }
+
+    fun getExcursion(id: Int): LiveData<Excurse> {
+
+        val data = MutableLiveData<Excurse>()
+        apiHelper.getExcursion(id).enqueue(object : Callback<Excurse> {
+            override fun onResponse(call: Call<Excurse>, response: Response<Excurse>) {
+                if (response.isSuccessful) {
+                    data.value = response.body()
+                }
+            }
+
+            override fun onFailure(call: Call<Excurse>, t: Throwable) {
+                Log.e("Error", t.message.toString())
+            }
+
+        })
+        return data
+    }
+
+    suspend fun getReviews(id: Int, page : Int): Response<ReviewResponse>? {
+        return try {
+            apiHelper.getExcursionReviews(id,page)
+        }catch (e: Exception) {
             Log.e("Exeption", e.message.toString())
             return null
         }
