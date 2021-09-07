@@ -29,6 +29,18 @@ interface API {
         @Query("price_format") format: String = "detailed"
     ): Call<Excurse>
 
+    @GET("/api/search/experiences/")
+    suspend fun getExperiencesFiltred(
+        @Query("page") page: Int,
+        @Query("city") cityId: Int,
+        @Query("price_format") priceFormat: String = "detailed",
+        @Query("detailed") detailed: Boolean = true,
+        @Query("start_price") startPrice : String? = null,
+        @Query("end_price") endPrice : String? = null,
+        @Query("start_date") startDate : String? = null,
+        @Query("end_date") endDate : String? = null
+    ): Response<ExcurseResponse>
+
     @GET("/api/experiences/")
     suspend fun getExperiences(
         @Query("page") page: Int,

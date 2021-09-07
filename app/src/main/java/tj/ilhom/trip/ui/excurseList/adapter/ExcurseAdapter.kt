@@ -46,12 +46,22 @@ class ExcurseAdapter(
         val excurse: Excurse? = getItem(position)
         holder.excurseName.text = excurse?.title
         holder.excurseReview.text = "${excurse?.rating} - ${excurse?.review_count} отзыва"
+
+        val curency = when(excurse?.price?.currency){
+            "EUR"->{
+                "€"
+            }
+            "USD"->{
+                "$"
+            }
+            else -> "₽"
+        }
         if (excurse?.price?.per_person?.isNotEmpty() == true) {
-            holder.excursePrice.text = "${excurse.price.per_person[0].value} ₽"
+            holder.excursePrice.text = "${excurse.price.per_person[0].value} $curency"
         } else if (excurse?.price?.per_group != null) {
-            holder.excursePrice.text = "${excurse.price.per_group.value} ₽"
+            holder.excursePrice.text = "${excurse.price.per_group.value} $curency"
         }else{
-            holder.excursePrice.text = "${excurse?.price?.value} ₽"
+            holder.excursePrice.text = "${excurse?.price?.value} $curency"
         }
         holder.excureseGuideName.text = "${excurse?.guide?.first_name}"
         holder.excurseDuration.text = "${excurse?.duration} часа"

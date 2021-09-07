@@ -9,6 +9,7 @@ import retrofit2.Response
 import tj.ilhom.trip.models.city.CityResponse
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.excurse.ExcurseResponse
+import tj.ilhom.trip.models.filter.FilterModel
 import tj.ilhom.trip.models.review.ReviewResponse
 import javax.inject.Inject
 
@@ -61,6 +62,27 @@ class Repository @Inject constructor(
         }
     }
 
+    suspend fun filterExcursions(
+        page: Int,
+        city: Int,
+        filterModel: FilterModel
+    ): Response<ExcurseResponse>? {
+        Log.e("Network","working")
+        return try {
+            apiHelper.filtredExcursion(
+                page = page,
+                city = city,
+                startPrice = filterModel.startPrice,
+                endPrice = filterModel.endPrice,
+                startDate = filterModel.startDate,
+                endDate = filterModel.endDate
+            )
+        } catch (e: Exception) {
+            Log.e("Exeption", e.message.toString())
+            return null
+        }
+    }
+
     fun getExcursion(id: Int): LiveData<Excurse> {
 
         val data = MutableLiveData<Excurse>()
@@ -79,10 +101,10 @@ class Repository @Inject constructor(
         return data
     }
 
-    suspend fun getReviews(id: Int, page : Int): Response<ReviewResponse>? {
+    suspend fun getReviews(id: Int, page: Int): Response<ReviewResponse>? {
         return try {
-            apiHelper.getExcursionReviews(id,page)
-        }catch (e: Exception) {
+            apiHelper.getExcursionReviews(id, page)
+        } catch (e: Exception) {
             Log.e("Exeption", e.message.toString())
             return null
         }

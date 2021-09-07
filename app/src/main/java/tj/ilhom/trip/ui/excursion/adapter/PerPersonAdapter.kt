@@ -16,7 +16,7 @@ import tj.ilhom.trip.R
 import tj.ilhom.trip.models.excurse.PerPerson
 import tj.ilhom.trip.models.excurse.Photo
 
-class PerPersonAdapter(val mContext: Fragment) :
+class PerPersonAdapter(val mContext: Fragment,val curency : String) :
     RecyclerView.Adapter<PerPersonAdapter.ViewHolder>() {
 
     var showMore: Boolean = false
@@ -43,6 +43,7 @@ class PerPersonAdapter(val mContext: Fragment) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val pricePerson : PerPerson = data[position]
         viewHolder.label.text = pricePerson.title
+
         if (pricePerson.value == 0.0){
             viewHolder.price.text = "бесплатно"
         }else{
@@ -52,7 +53,7 @@ class PerPersonAdapter(val mContext: Fragment) :
                 viewHolder.price.setTextSize(TypedValue.COMPLEX_UNIT_SP,24f)
 
             }
-            viewHolder.price.text = pricePerson.value.toString() + " ₽"
+            viewHolder.price.text = pricePerson.value.toString() + " $curency"
         }
 
     }

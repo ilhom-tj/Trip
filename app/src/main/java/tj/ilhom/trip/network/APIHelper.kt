@@ -16,5 +16,14 @@ interface APIHelper {
 
     fun getExcursion(id: Int): Call<Excurse>
 
-    suspend fun getExcursionReviews(excurse: Int,page: Int) : Response<ReviewResponse>
+    suspend fun getExcursionReviews(excurse: Int, page: Int): Response<ReviewResponse>
+
+    suspend fun filtredExcursion(
+        page: Int,
+        city : Int,
+        startPrice: Double? = null,
+        endPrice: Double? = null,
+        startDate: String? = null,
+        endDate: String? = null
+    ): Response<ExcurseResponse>
 }

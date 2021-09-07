@@ -32,6 +32,7 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
     private lateinit var excurseAdapter: ExcurseAdapter
     private val searchQuery = MutableLiveData<String>()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,8 +79,19 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
         }
 
         binding.filters.setOnClickListener {
-            val action = ExcursionListFragmentDirections.actionExcurseFragmentToExcursionFilterFragment()
+            val action = ExcursionListFragmentDirections.actionExcurseFragmentToExcursionFilterFragment(args.city.id)
             findNavController().navigate(action)
+        }
+
+
+
+        viewModel.filter.observe(viewLifecycleOwner) {
+            lifecycleScope.launch {
+                viewModel.filterData(
+                    city = args.city.id,
+                    filterModel = it
+                ).collect(excurseAdapter::submitData)
+            }
         }
     }
 

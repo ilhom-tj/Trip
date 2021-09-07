@@ -91,12 +91,15 @@
             android:id="@+id/guide_name"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:text="Тимур"
+            android:text="Oleg"
             android:layout_marginStart="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/guide"
-            app:layout_constraintStart_toEndOf="@+id/guide" app:layout_constraintTop_toTopOf="@+id/guide"/>
+            app:layout_constraintStart_toEndOf="@+id/guide" app:layout_constraintTop_toTopOf="@+id/guide"
+            app:layout_constraintEnd_toStartOf="@+id/guide_duration"/>
     <TextView
             android:id="@+id/guide_duration"
             android:textSize="20sp"
@@ -105,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/guide_name"
-            android:layout_marginEnd="35dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/excurse_price"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

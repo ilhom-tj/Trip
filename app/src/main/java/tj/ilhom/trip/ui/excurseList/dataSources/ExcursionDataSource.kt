@@ -1,4 +1,4 @@
-package tj.ilhom.trip.ui.excurseList
+package tj.ilhom.trip.ui.excurseList.dataSources
 
 import android.util.Log
 import androidx.paging.PagingSource

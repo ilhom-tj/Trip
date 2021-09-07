@@ -54,7 +54,16 @@ class ExcursionFragment : Fragment() {
                 binding.allView.isVisible = true
                 binding.progress.isVisible = false
                 pictureAdapter = PicturesAdapter(this)
-                perPersonAdapter = PerPersonAdapter(this)
+                val curency = when(excursion?.price?.currency){
+                    "EUR"->{
+                        "€"
+                    }
+                    "USD"->{
+                        "$"
+                    }
+                    else -> "₽"
+                }
+                perPersonAdapter = PerPersonAdapter(this,curency)
                 binding.perPersons.layoutManager = LinearLayoutManager(requireContext())
                 binding.perPersons.adapter = perPersonAdapter
                 if (!excursion.price.per_person.isNullOrEmpty()) {
