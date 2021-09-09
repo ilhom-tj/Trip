@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.innovattic.rangeseekbar.RangeSeekBar
+import dagger.hilt.android.AndroidEntryPoint
 import tj.ilhom.trip.R
 import tj.ilhom.trip.databinding.ExcursionFilterFragmentBinding
 import tj.ilhom.trip.models.filter.FilterModel
@@ -23,6 +25,7 @@ import tj.ilhom.trip.ui.excurseList.ExcursionListViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class ExcursionFilterFragment : BottomSheetDialogFragment() {
 
     private lateinit var viewModel: ExcursionListViewModel
@@ -135,15 +138,17 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
         binding.excursionTagTypeRecycler.adapter = excursionTagTypeAdapter
 
 
-        viewModel = ViewModelProvider(requireActivity()).get(ExcursionListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ExcursionListViewModel::class.java)
         binding.rangeSeekBar.max = 15000
         binding.rangeSeekBar.minRange = 0
 
         binding.cardView.setOnClickListener {
             filter.startDate = binding.dateFromEdt.text.toString()
             filter.endDate = binding.dateToEdt.text.toString()
-            viewModel.setFilter(filter)
-            this.dismiss()
+            val mutableFilter = MutableLiveData<FilterModel>()
+            mutableFilter.value = filter
+            findNavController().previousBackStackEntry?.savedStateHandle?.set("filter",mutableFilter.value)
+            findNavController().navigateUp()
         }
         binding.rangeSeekBar.seekBarChangeListener =
             object : RangeSeekBar.SeekBarChangeListener {

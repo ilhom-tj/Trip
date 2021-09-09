@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -20,9 +21,11 @@ import kotlinx.coroutines.launch
 import tj.ilhom.trip.Utils.debounce
 import tj.ilhom.trip.databinding.ExcursionListFragmentBinding
 import tj.ilhom.trip.models.excurse.Excurse
+import tj.ilhom.trip.models.filter.FilterModel
 import tj.ilhom.trip.ui.excurseList.adapter.ExcurseAdapter
 import tj.ilhom.trip.ui.excurseList.adapter.ExcursionEvent
 
+@AndroidEntryPoint
 class ExcursionListFragment : Fragment(), ExcursionEvent {
 
 
@@ -44,14 +47,15 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ExcursionListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ExcursionListViewModel::class.java)
+
+
         binding.excurseCity.text = args.city.name_ru
 
         excurseAdapter = ExcurseAdapter(this, this)
         binding.excursionList.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.excursionList.adapter = excurseAdapter
 
-        val mass = emptyList<Excurse>()
         lifecycleScope.launch {
             viewModel.getExcursion(args.city).collect(excurseAdapter::submitData)
         }
@@ -83,16 +87,25 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
             findNavController().navigate(action)
         }
 
-
-
-        viewModel.filter.observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
-                viewModel.filterData(
-                    city = args.city.id,
-                    filterModel = it
-                ).collect(excurseAdapter::submitData)
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<FilterModel>("filter")
+            ?.observe(viewLifecycleOwner) { filter ->
+                lifecycleScope.launch {
+                    viewModel.filterData(
+                        city = args.city.id,
+                        filterModel = filter
+                    ).collect(excurseAdapter::submitData)
+                }
             }
-        }
+//
+//        viewModel.filter.observe(viewLifecycleOwner) {
+//            Log.e("vie",it.startPrice.toString())
+//            lifecycleScope.launch {
+//                viewModel.filterData(
+//                    city = args.city.id,
+//                    filterModel = it
+//                ).collect(excurseAdapter::submitData)
+//            }
+//        }
     }
 
     override fun excursionClick(excurse: Excurse) {

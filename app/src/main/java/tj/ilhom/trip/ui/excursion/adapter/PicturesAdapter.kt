@@ -1,9 +1,11 @@
 package tj.ilhom.trip.ui.excursion.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -16,6 +18,8 @@ class PicturesAdapter(val mContext: Fragment) :
     RecyclerView.Adapter<PicturesAdapter.ViewHolder>() {
 
     var showMore: Boolean = false
+    var picturesLeft : Int = 0
+
     private var data = emptyList<Photo>()
 
     fun setData(list: List<Photo>) {
@@ -26,6 +30,7 @@ class PicturesAdapter(val mContext: Fragment) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val icon: ImageView = view.findViewById(R.id.photo)
         val showMorePhoto: ConstraintLayout = view.findViewById(R.id.show_more_photo)
+        val picturesLeft : TextView = view.findViewById(R.id.picturesLeft)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -34,11 +39,13 @@ class PicturesAdapter(val mContext: Fragment) :
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val photo: Photo = data[position]
         Glide.with(viewHolder.itemView.context).load(photo.thumbnail).into(viewHolder.icon)
         if (position == getLastIndex()){
             viewHolder.showMorePhoto.isVisible = showMore
+            viewHolder.picturesLeft.text = "Ещё $picturesLeft фото"
         }
     }
 

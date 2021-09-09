@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
@@ -39,15 +40,10 @@ class ExcursionFragment : Fragment() {
     }
 
     val arrayOfPhoto = arrayListOf<Photo>()
-    val arrayOfReview = arrayListOf<Review>()
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ExcursionViewModel::class.java)
-
-//        viewModel.getReviews(args.excurse.id).observe(viewLifecycleOwner) {
-//            Log.e("IT",it.results.size.toString())
-//            arrayOfReview.addAll(it.results)
-//        }
 
         viewModel.getExcursion(args.excurse.id).observe(viewLifecycleOwner) { excursion ->
             excursion.let {
@@ -89,9 +85,10 @@ class ExcursionFragment : Fragment() {
                 }
                 Glide.with(requireActivity()).load(excursion.photos[0].medium).into(binding.mainImage)
 
-                if (args.excurse.photos.size > 4) {
+                Log.e("Size Photo",excursion.photos.size.toString())
+                if (excursion.photos.size > 4) {
                     pictureAdapter.showMore = true
-                    pictureAdapter
+                    pictureAdapter.picturesLeft = excursion.photos.size - 4
                     excursion.photos.forEachIndexed { index, photo ->
                         if (index < 4) {
                             arrayOfPhoto.add(photo)
@@ -110,10 +107,7 @@ class ExcursionFragment : Fragment() {
 
 
                 binding.apply {
-                    pictures.layoutManager = StaggeredGridLayoutManager(
-                        2,
-                        StaggeredGridLayoutManager.VERTICAL
-                    )
+                    pictures.layoutManager = GridLayoutManager(requireContext(),2)
                     pictures.isNestedScrollingEnabled = false
                     pictures.setHasFixedSize(true)
 
@@ -130,7 +124,6 @@ class ExcursionFragment : Fragment() {
                     }
                     duration.text = excursion.duration.toString() + " часа"
                     groupQty.text = "До " + excursion.max_persons.toString() + " человек"
-//            standardPrice.text = args.excurse.price.value.toString() + " ₽"
                     binding.showMore.setOnClickListener {
                         val action =
                             ExcursionFragmentDirections.actionExcursionFragmentToDescriptionFragment(excursion)

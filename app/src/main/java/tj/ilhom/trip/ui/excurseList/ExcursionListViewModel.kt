@@ -46,33 +46,37 @@ class ExcursionListViewModel @Inject constructor(
                     filterModel = filterModel
                 )
             },
-        ).flow.map {
-            it.filter { item ->
-                filterByType(item.type, filterModel)
-            }
-        }.map {
-            it.filter { item ->
-                filterByMoveType(item.movement_type, filterModel)
-            }
-        }
+        ).flow
             .map {
-                it.filter { item->
-                    filterByTagType(item.tags,filterModel)
+                it.filter { item ->
+                    filterByType(item.type, filterModel)
+                }
+            }.map {
+                it.filter { item ->
+                    filterByMoveType(item.movement_type, filterModel)
+                }
+            }.map {
+                it.filter { item ->
+                    filterByTagType(item.tags, filterModel)
                 }
             }
+
+
     }
 
-    private fun filterByTagType(tags: List<Tag>,filterModel: FilterModel) : Boolean {
-        tags.forEach{
-            if (checkTag(it.name,filterModel)){
+
+    private fun filterByTagType(tags: List<Tag>, filterModel: FilterModel): Boolean {
+        tags.forEach {
+            if (checkTag(it.name, filterModel)) {
                 return true
             }
         }
         return false
     }
-    fun checkTag(tag : String,filterModel: FilterModel) : Boolean{
-        filterModel.tripTagType.forEach{
-            if (tag == it){
+
+    fun checkTag(tag: String, filterModel: FilterModel): Boolean {
+        filterModel.tripTagType.forEach {
+            if (tag == it) {
                 return true
             }
         }
@@ -107,7 +111,7 @@ class ExcursionListViewModel @Inject constructor(
                 "На велосипеде"
             }
             "bus" -> {
-                 "На автобусе"
+                "На автобусе"
             }
             "motorcycle" -> {
                 "На мотоцикле"
@@ -115,7 +119,7 @@ class ExcursionListViewModel @Inject constructor(
             "watership" -> {
                 "На кораблике"
             }
-            else->"Другое"
+            else -> "Другое"
         }
 
         filterModel.tripMoveType.forEach {
