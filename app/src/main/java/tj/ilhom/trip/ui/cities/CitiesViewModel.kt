@@ -19,7 +19,7 @@ class CitiesViewModel @Inject constructor(
     fun getCities(): Flow<PagingData<City>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 1,
+                pageSize = 10,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
@@ -32,7 +32,7 @@ class CitiesViewModel @Inject constructor(
     fun search(name: String): Flow<PagingData<City>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 1,
+                pageSize = 10,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {

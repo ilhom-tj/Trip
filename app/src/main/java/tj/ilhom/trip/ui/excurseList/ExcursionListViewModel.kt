@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.models.excurse.Excurse
+import tj.ilhom.trip.models.excurse.ExcurseResponse
 import tj.ilhom.trip.models.excurse.Tag
 import tj.ilhom.trip.models.filter.FilterModel
 import tj.ilhom.trip.network.Repository
@@ -23,7 +24,6 @@ class ExcursionListViewModel @Inject constructor(
 ) : ViewModel() {
 
     val filter = MutableLiveData<FilterModel>()
-
 
     fun setFilter(filterModel: FilterModel) {
         filter.value = filterModel

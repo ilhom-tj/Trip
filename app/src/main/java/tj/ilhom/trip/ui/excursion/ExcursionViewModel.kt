@@ -16,7 +16,4 @@ class ExcursionViewModel @Inject constructor(
         return repository.getExcursion(id)
     }
 
-//     fun getReviews(id: Int): LiveData<ReviewResponse> {
-//        return repository.getReviews(id)
-//    }
 }

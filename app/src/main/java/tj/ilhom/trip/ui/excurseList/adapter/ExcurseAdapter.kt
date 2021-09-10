@@ -25,6 +25,7 @@ class ExcurseAdapter(
 ) :
     PagingDataAdapter<Excurse, ExcurseAdapter.ExcurseViewHolder>(diffUtil) {
 
+    var attached: Boolean = false
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -49,14 +50,13 @@ class ExcurseAdapter(
     @SuppressLint("SetTextI18n", "CheckResult")
     override fun onBindViewHolder(holder: ExcurseViewHolder, position: Int) {
         val excurse: Excurse? = getItem(position)
-
-        val imageAdapter = ImageSliderAdapter()
+        val imageAdapter = ImageSliderAdapter(R.layout.image_slider)
         if (excurse?.photos?.isNotEmpty() == true) {
             if (excurse.photos.size > 4) {
                 val newImageArr = mutableListOf<Photo>()
                 excurse.photos.forEachIndexed { index, photo ->
                     if (index < 4) {
-                        Log.e("Index" , index.toString())
+                        Log.e("Index", index.toString())
                         newImageArr.add(photo)
                     }
                 }
@@ -71,11 +71,12 @@ class ExcurseAdapter(
         }
         holder.backgroundImage.adapter = imageAdapter
 
-        val pagerSnapHelper = PagerSnapHelper()
-
         holder.description.text = excurse?.tagline
+
+        val pagerSnapHelper = PagerSnapHelper()
         pagerSnapHelper.attachToRecyclerView(holder.backgroundImage)
         holder.indicator.attachToRecyclerView(holder.backgroundImage, pagerSnapHelper)
+
 
 
         holder.excurseName.text = excurse?.title
@@ -115,4 +116,11 @@ class ExcurseAdapter(
                 oldItem == newItem
         }
     }
+
+    override fun onViewAttachedToWindow(holder: ExcurseViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        holder.backgroundImage.onFlingListener = null
+
+    }
+
 }

@@ -14,8 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.Utils.debounce
@@ -28,7 +26,7 @@ import tj.ilhom.trip.ui.excurseList.adapter.ExcursionEvent
 @AndroidEntryPoint
 class ExcursionListFragment : Fragment(), ExcursionEvent {
 
-
+    private lateinit var _view: View
     private lateinit var viewModel: ExcursionListViewModel
     private lateinit var binding: ExcursionListFragmentBinding
     private val args: ExcursionListFragmentArgs by navArgs()
@@ -40,8 +38,10 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = ExcursionListFragmentBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
 
@@ -49,12 +49,12 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ExcursionListViewModel::class.java)
 
-
         binding.excurseCity.text = args.city.name_ru
 
         excurseAdapter = ExcurseAdapter(this, this)
         binding.excursionList.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.excursionList.adapter = excurseAdapter
+
 
         lifecycleScope.launch {
             viewModel.getExcursion(args.city).collect(excurseAdapter::submitData)
@@ -76,7 +76,7 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
         })
 
         searchQuery.debounce(1000).observe(viewLifecycleOwner) { query ->
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch {
                 viewModel.searchExcursion(1, city = args.city, query)
                     .collect(excurseAdapter::submitData)
             }
@@ -96,23 +96,14 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
                     ).collect(excurseAdapter::submitData)
                 }
             }
-//
-//        viewModel.filter.observe(viewLifecycleOwner) {
-//            Log.e("vie",it.startPrice.toString())
-//            lifecycleScope.launch {
-//                viewModel.filterData(
-//                    city = args.city.id,
-//                    filterModel = it
-//                ).collect(excurseAdapter::submitData)
-//            }
-//        }
     }
-
     override fun excursionClick(excurse: Excurse) {
         val action = ExcursionListFragmentDirections
             .actionExcurseFragmentToExcursionFragment(excurse)
         findNavController().navigate(action)
     }
-
-
 }
+
+
+
+

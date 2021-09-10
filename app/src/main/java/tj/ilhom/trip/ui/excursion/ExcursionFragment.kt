@@ -7,30 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.PagerSnapHelper
+import dagger.hilt.android.AndroidEntryPoint
+import tj.ilhom.trip.R
 import tj.ilhom.trip.databinding.ExcursionFragmentBinding
 import tj.ilhom.trip.models.excurse.PerPerson
 import tj.ilhom.trip.models.excurse.Photo
-import tj.ilhom.trip.models.review.Review
+import tj.ilhom.trip.ui.excurseList.adapter.ImageSliderAdapter
 import tj.ilhom.trip.ui.excursion.adapter.PerPersonAdapter
 import tj.ilhom.trip.ui.excursion.adapter.PicturesAdapter
 
 
+@AndroidEntryPoint
 class ExcursionFragment : Fragment() {
 
 
-    private lateinit var viewModel: ExcursionViewModel
+    private val viewModel: ExcursionViewModel by viewModels()
     private lateinit var binding: ExcursionFragmentBinding
     private val args: ExcursionFragmentArgs by navArgs()
     private lateinit var pictureAdapter: PicturesAdapter
     private lateinit var perPersonAdapter: PerPersonAdapter
-
+    private lateinit var imageSliderAdapter: ImageSliderAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,23 +46,49 @@ class ExcursionFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ExcursionViewModel::class.java)
+        imageSliderAdapter = ImageSliderAdapter(R.layout.image_slider_solid)
 
         viewModel.getExcursion(args.excurse.id).observe(viewLifecycleOwner) { excursion ->
             excursion.let {
+                if (it?.photos?.isNotEmpty() == true) {
+                    if (it.photos.size > 4) {
+                        val newImageArr = mutableListOf<Photo>()
+                        it.photos.forEachIndexed { index, photo ->
+                            if (index < 4) {
+                                Log.e("Index", index.toString())
+                                newImageArr.add(photo)
+                            }
+                        }
+                        imageSliderAdapter.setData(newImageArr ?: emptyList())
+                    }
+                } else {
+                    imageSliderAdapter.setData(it?.photos ?: emptyList())
+                }
+
+                binding.photoSlider.layoutManager = LinearLayoutManager(requireContext()).apply {
+                    orientation = LinearLayoutManager.HORIZONTAL
+                }
+
+
+                binding.photoSlider.adapter = imageSliderAdapter
+                val pagerSnapHelper = PagerSnapHelper()
+                pagerSnapHelper.attachToRecyclerView(binding.photoSlider)
+                binding.indicator.attachToRecyclerView(binding.photoSlider, pagerSnapHelper)
+
+
                 binding.allView.isVisible = true
                 binding.progress.isVisible = false
                 pictureAdapter = PicturesAdapter(this)
-                val curency = when(excursion?.price?.currency){
-                    "EUR"->{
+                val curency = when (excursion?.price?.currency) {
+                    "EUR" -> {
                         "€"
                     }
-                    "USD"->{
+                    "USD" -> {
                         "$"
                     }
                     else -> "₽"
                 }
-                perPersonAdapter = PerPersonAdapter(this,curency)
+                perPersonAdapter = PerPersonAdapter(this, curency)
                 binding.perPersons.layoutManager = LinearLayoutManager(requireContext())
                 binding.perPersons.adapter = perPersonAdapter
                 if (!excursion.price.per_person.isNullOrEmpty()) {
@@ -83,9 +112,9 @@ class ExcursionFragment : Fragment() {
                 binding.share.setOnClickListener {
                     // TODO DO SHARE LOGIC
                 }
-                Glide.with(requireActivity()).load(excursion.photos[0].medium).into(binding.mainImage)
+//                Glide.with(requireActivity()).load(excursion.photos[0].medium).into(binding.mainImage)
 
-                Log.e("Size Photo",excursion.photos.size.toString())
+                Log.e("Size Photo", excursion.photos.size.toString())
                 if (excursion.photos.size > 4) {
                     pictureAdapter.showMore = true
                     pictureAdapter.picturesLeft = excursion.photos.size - 4
@@ -107,7 +136,7 @@ class ExcursionFragment : Fragment() {
 
 
                 binding.apply {
-                    pictures.layoutManager = GridLayoutManager(requireContext(),2)
+                    pictures.layoutManager = GridLayoutManager(requireContext(), 2)
                     pictures.isNestedScrollingEnabled = false
                     pictures.setHasFixedSize(true)
 

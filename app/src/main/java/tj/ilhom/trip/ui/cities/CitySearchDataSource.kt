@@ -11,7 +11,7 @@ class CitySearchDataSource(
     private val name : String
 ) : PagingSource<Int, City>() {
     override fun getRefreshKey(state: PagingState<Int, City>): Int {
-        return 0
+        return 1
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, City> {

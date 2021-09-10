@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.CoroutineScope
@@ -21,8 +22,8 @@ import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.ui.cities.adapter.CityEvents
 import tj.ilhom.trip.ui.cities.adapter.CityListAdapter
 
-class CitiesFragment : Fragment(), CityEvents {
 
+class CitiesFragment : Fragment(), CityEvents {
 
     private lateinit var viewModel: CitiesViewModel
     private lateinit var binding: CitiesFragmentBinding
@@ -45,7 +46,7 @@ class CitiesFragment : Fragment(), CityEvents {
         binding.cityList.adapter = cityListAdapter
 
 
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             viewModel.getCities().collect(cityListAdapter::submitData)
         }
 

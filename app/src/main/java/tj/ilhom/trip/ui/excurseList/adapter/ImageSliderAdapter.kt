@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import tj.ilhom.trip.R
 import tj.ilhom.trip.models.excurse.Photo
 
-class ImageSliderAdapter() :
+class ImageSliderAdapter(val layout : Int) :
     RecyclerView.Adapter<ImageSliderAdapter.ViewHolder>() {
     private var data = emptyList<Photo>()
 
@@ -26,7 +26,7 @@ class ImageSliderAdapter() :
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.image_slider, viewGroup, false)
+            .inflate(layout, viewGroup, false)
         return ViewHolder(view)
     }
 
