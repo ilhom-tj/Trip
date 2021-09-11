@@ -1,138 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".ui.excursion.descriptionModal.DescriptionFragment">
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        tools:context=".ui.excursion.descriptionModal.DescriptionFragment">
-    <androidx.core.widget.NestedScrollView
-            android:orientation="vertical"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                           android:layout_height="match_parent">
+            android:layout_height="match_parent">
+
             <TextView
-                    android:layout_margin="16dp"
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text=""
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text=""
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.cardview.widget.CardView
-                    android:id="@+id/guide_card"
-                    app:cardCornerRadius="14dp"
-                    android:layout_margin="16dp"
-                    android:elevation="1dp"
-                    android:translationZ="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/description"
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+                android:id="@+id/guide_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:elevation="1dp"
+                android:translationZ="10dp"
+                app:cardCornerRadius="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                        android:padding="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/guide_avatar"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:src="@drawable/city"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"/>
-                    <TextView
-                            android:text="Гид - "
-                            android:layout_marginStart="16dp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" app:layout_constraintStart_toEndOf="@+id/guide_avatar"
-                            app:layout_constraintTop_toTopOf="@+id/guide_avatar"
-                            app:layout_constraintBottom_toBottomOf="@+id/guide_avatar" android:id="@+id/textView3"/>
-                    <TextView
-                            android:id="@+id/guide_name"
-                            android:text="Тимур"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            app:layout_constraintHorizontal_bias="0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" app:layout_constraintStart_toEndOf="@+id/textView3"
-                            app:layout_constraintTop_toTopOf="@+id/guide_avatar"
-                            app:layout_constraintBottom_toBottomOf="@+id/guide_avatar"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-                    <TextView
-                            android:id="@+id/guide_description"
-                            android:text="Тимур"
-                            android:layout_marginTop="16dp"
-                            android:textColor="@color/black"
-                            app:layout_constraintVertical_bias="0"
-                            android:textSize="16sp"
-                            app:layout_constraintHorizontal_bias="0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/guide_avatar"
-                            app:layout_constraintStart_toStartOf="@+id/guide_avatar"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/meeting_lay"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/guide_card"
-            >
-                <TextView
-                        android:layout_margin="16dp"
-                        android:id="@+id/textview6"
-                        android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/guide_avatar"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/city"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Гид - "
                         android:textColor="@color/black"
-                        android:text="Место встречи"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-                <TextView
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="8dp"
-                        android:id="@+id/meeting_palace"
-                        android:layout_width="match_parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/guide_avatar"
+                        app:layout_constraintStart_toEndOf="@+id/guide_avatar"
+                        app:layout_constraintTop_toTopOf="@+id/guide_avatar" />
+
+                    <TextView
+                        android:id="@+id/guide_name"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="Тимур"
                         android:textColor="@color/black"
-                        android:text="Организационные детали"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/textview6"/>
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/guide_avatar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toEndOf="@+id/textView3"
+                        app:layout_constraintTop_toTopOf="@+id/guide_avatar" />
+
+                    <TextView
+                        android:id="@+id/guide_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Тимур"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="@+id/guide_avatar"
+                        app:layout_constraintTop_toBottomOf="@+id/guide_avatar"
+                        app:layout_constraintVertical_bias="0" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/meeting_lay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/guide_card">
+
+                <TextView
+                    android:id="@+id/textview6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="Место встречи"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/meeting_palace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Организационные детали"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview6" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-             <androidx.cardview.widget.CardView
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#212121"
-                    app:cardCornerRadius="16dp"
-                    android:layout_margin="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:id="@+id/close"
-                    app:layout_constraintTop_toBottomOf="@+id/meeting_lay">
+            <androidx.cardview.widget.CardView
+
+                android:id="@+id/close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="#212121"
+                app:cardCornerRadius="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/meeting_lay">
+
                 <TextView
-                        android:text="Закрыть"
-                        android:padding="16dp"
-                        android:textAlignment="center"
-                        android:textColor="#fff"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:text="Закрыть"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
