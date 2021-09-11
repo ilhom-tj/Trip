@@ -30,8 +30,8 @@ class ReviewFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(requireActivity()).get(ReviewViewModel::class.java)
 
@@ -45,6 +45,10 @@ class ReviewFragment : BottomSheetDialogFragment() {
         CoroutineScope(Dispatchers.IO).launch {
             viewModel.getReview(args.excurseId)
                 .collect(adapter::submitData)
+        }
+
+        ReviewDataSource.count.observe(viewLifecycleOwner) {
+            binding.count.text = "$it отзывов"
         }
 
     }

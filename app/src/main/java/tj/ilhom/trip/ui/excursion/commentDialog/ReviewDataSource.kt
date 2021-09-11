@@ -1,19 +1,18 @@
 package tj.ilhom.trip.ui.excursion.commentDialog
 
 import android.util.Log
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
-import tj.ilhom.trip.models.city.City
-import tj.ilhom.trip.models.city.CityResponse
 import tj.ilhom.trip.models.review.Review
 import tj.ilhom.trip.models.review.ReviewResponse
 import tj.ilhom.trip.network.Repository
-import java.lang.Exception
 
 class ReviewDataSource(
     private val repo: Repository,
-    private val id : Int
+    private val id: Int
 ) : PagingSource<Int, Review>() {
 
     override fun getRefreshKey(state: PagingState<Int, Review>): Int? {
@@ -26,18 +25,19 @@ class ReviewDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Review> {
         return try {
             val nextPageNumber = params.key ?: 1
-            val response = repo.getReviews(id,nextPageNumber)?.body()
-            Log.e("Response",response?.results?.size.toString())
+            val response = repo.getReviews(id, nextPageNumber)?.body()
+            Log.e("Response", response?.results?.size.toString())
+            count.postValue(response?.count ?: 0)
             LoadResult.Page(
                 data = response?.results ?: emptyList(),
                 prevKey = response?.getPrevPageNumber(),
                 nextKey = response?.getNextPageNumber()
-                )
+            )
         } catch (e: Exception) {
-            Log.e("Exception",e.message.toString())
+            Log.e("Exception", e.message.toString())
             LoadResult.Error(e)
-        }catch (http : HttpException){
-            Log.e("Exception",http.message.toString())
+        } catch (http: HttpException) {
+            Log.e("Exception", http.message.toString())
             LoadResult.Error(http)
         }
     }
@@ -51,4 +51,8 @@ class ReviewDataSource(
         ?.substringBefore("&page_size=")
         ?.substringAfter("?page=")
         ?.toIntOrNull()
+
+    companion object{
+        var count = MutableLiveData(0)
+    }
 }
