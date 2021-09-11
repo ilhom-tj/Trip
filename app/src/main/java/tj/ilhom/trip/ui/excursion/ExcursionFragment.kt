@@ -163,7 +163,7 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                     excursionTitle.text = excursion.title
                     reviewRating.text = excursion.rating.toString()
                     ratingBar.rating = excursion.rating.toFloat()
-                    reviewQty.text = excursion.review_count.toString() + " отзыва"
+                    reviewQty.text = excursion.review_count.toString() + " отзывов"
 
                     if (excursion.annotation.isNullOrEmpty()) {
                         description.text = excursion.tagline
