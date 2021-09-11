@@ -74,6 +74,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'com.github.shts:StoriesProgressview:3.0.0'
 
 
     // Retrofit

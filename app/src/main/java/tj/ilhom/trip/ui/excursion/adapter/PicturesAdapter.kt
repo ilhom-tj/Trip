@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import tj.ilhom.trip.R
 import tj.ilhom.trip.models.excurse.Photo
 
-class PicturesAdapter(val mContext: Fragment) :
+class PicturesAdapter(val mContext: Fragment,val imageEvents : ImageEvents) :
     RecyclerView.Adapter<PicturesAdapter.ViewHolder>() {
 
     var showMore: Boolean = false
@@ -33,6 +33,11 @@ class PicturesAdapter(val mContext: Fragment) :
         val picturesLeft : TextView = view.findViewById(R.id.picturesLeft)
     }
 
+    interface ImageEvents {
+        fun photoClick(photo: Photo)
+        fun showMorePhoto()
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.excurse_photo, viewGroup, false)
@@ -46,7 +51,15 @@ class PicturesAdapter(val mContext: Fragment) :
         if (position == getLastIndex()){
             viewHolder.showMorePhoto.isVisible = showMore
             viewHolder.picturesLeft.text = "Ещё $picturesLeft фото"
+            viewHolder.itemView.setOnClickListener {
+                imageEvents.showMorePhoto()
+            }
+        }else{
+            viewHolder.itemView.setOnClickListener {
+                imageEvents.photoClick(photo)
+            }
         }
+
     }
 
     override fun getItemCount() = data.size

@@ -26,7 +26,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-             <androidx.recyclerview.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/photo_slider"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -284,14 +284,113 @@
                     app:layout_constraintTop_toBottomOf="@+id/how_it_comes"
                     android:id="@+id/photos"
                     app:layout_constraintStart_toStartOf="@+id/how_it_comes_label"/>
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/pictures"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/photo_gallary"
                     android:layout_width="match_parent"
+                    android:layout_margin="16dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/photos"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/photos">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                        app:riv_corner_radius="10dp"
+                        android:src="@drawable/city"
+                        android:layout_width="0dp"
+                        android:layout_height="128dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintDimensionRatio="4:3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/image1"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/image2"/>
+                <com.makeramen.roundedimageview.RoundedImageView
+                        app:riv_corner_radius="10dp"
+                        android:src="@drawable/city"
+                        android:layout_width="0dp"
+                        android:layout_height="230dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/image2"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintHorizontal_bias="0.5"/>
+                <com.makeramen.roundedimageview.RoundedImageView
+                        app:riv_corner_radius="10dp"
+                        android:src="@drawable/city"
+                        android:layout_width="0dp"
+                        android:layout_height="220dp"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/roundedImageView3"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/image1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/last_image"
+                        app:layout_constraintHorizontal_bias="0.5"/>
+
+
+                <androidx.cardview.widget.CardView
+                        android:id="@+id/last_image"
+                        android:layout_width="0dp"
+                        android:layout_height="128dp"
+                        app:cardCornerRadius="10dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/image2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/image2">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        <com.makeramen.roundedimageview.RoundedImageView
+
+                                app:riv_corner_radius="10dp"
+                                android:src="@drawable/city"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:foreground="#7A000000"
+                                android:id="@+id/image4"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+                        <ImageView
+                                android:src="@drawable/photo_gallary"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_margin="40dp"
+
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/image4"
+                                app:layout_constraintTop_toTopOf="@+id/image4"
+                                android:id="@+id/imageView2"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintBottom_toBottomOf="@+id/image4"
+                                app:layout_constraintVertical_bias="0"/>
+                        <TextView
+                                android:id="@+id/picturesLeft"
+                                android:text="Еще 5 фото"
+                                android:layout_marginTop="5dp"
+                                android:textSize="18sp"
+                                android:textColor="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                                app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                                app:layout_constraintBottom_toBottomOf="@+id/image4"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
                     android:paddingBottom="5dp"
                     android:textColor="@color/black"
                     android:textSize="19sp"
@@ -300,7 +399,7 @@
                     android:maxLines="3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/pictures"
+                    app:layout_constraintTop_toBottomOf="@+id/photo_gallary"
                     android:id="@+id/price_label"
                     app:layout_constraintStart_toStartOf="parent"/>
             <androidx.recyclerview.widget.RecyclerView

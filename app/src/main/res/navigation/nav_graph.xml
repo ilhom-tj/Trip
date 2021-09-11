@@ -30,6 +30,7 @@
         <action android:id="@+id/action_excursionFragment_to_descriptionFragment"
                 app:destination="@id/descriptionFragment"/>
         <action android:id="@+id/action_excursionFragment_to_reviewFragment" app:destination="@id/reviewFragment"/>
+        <action android:id="@+id/action_excursionFragment_to_photosFragment" app:destination="@id/photosFragment"/>
     </fragment>
     <dialog android:id="@+id/descriptionFragment"
               android:name="tj.ilhom.trip.ui.excursion.descriptionModal.DescriptionFragment"
@@ -40,4 +41,8 @@
               android:label="review_fragment" tools:layout="@layout/review_fragment">
         <argument android:name="excurseId" app:argType="integer"/>
     </dialog>
+    <fragment android:id="@+id/photosFragment" android:name="tj.ilhom.trip.ui.photosFragment.PhotosFragment"
+              android:label="photos_fragment" tools:layout="@layout/photos_fragment">
+        <argument android:name="photos" app:argType="tj.ilhom.trip.models.excurse.Photo[]"/>
+    </fragment>
 </navigation>

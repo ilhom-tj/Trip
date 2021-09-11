@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import tj.ilhom.trip.R
 import tj.ilhom.trip.databinding.ExcursionFragmentBinding
@@ -25,7 +25,7 @@ import tj.ilhom.trip.ui.excursion.adapter.PicturesAdapter
 
 
 @AndroidEntryPoint
-class ExcursionFragment : Fragment() {
+class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
 
 
     private val viewModel: ExcursionViewModel by viewModels()
@@ -34,6 +34,8 @@ class ExcursionFragment : Fragment() {
     private lateinit var pictureAdapter: PicturesAdapter
     private lateinit var perPersonAdapter: PerPersonAdapter
     private lateinit var imageSliderAdapter: ImageSliderAdapter
+
+    val allPhotos = mutableListOf<Photo>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,6 +52,21 @@ class ExcursionFragment : Fragment() {
 
         viewModel.getExcursion(args.excurse.id).observe(viewLifecycleOwner) { excursion ->
             excursion.let {
+                allPhotos.addAll(it.photos)
+
+                Glide.with(requireActivity()).load(allPhotos[0].medium).into(binding.image1)
+
+                Glide.with(requireActivity()).load(allPhotos[1].medium).into(binding.image2)
+
+                Glide.with(requireActivity()).load(allPhotos[2].medium).into(binding.roundedImageView3)
+
+                Glide.with(requireActivity()).load(allPhotos[3].medium).into(binding.image4)
+
+                binding.lastImage.setOnClickListener {
+                    val action = ExcursionFragmentDirections.actionExcursionFragmentToPhotosFragment(allPhotos.toTypedArray())
+                    findNavController().navigate(action)
+                }
+
                 if (it?.photos?.isNotEmpty() == true) {
                     if (it.photos.size > 4) {
                         val newImageArr = mutableListOf<Photo>()
@@ -70,6 +87,7 @@ class ExcursionFragment : Fragment() {
                 }
 
 
+
                 binding.photoSlider.adapter = imageSliderAdapter
                 val pagerSnapHelper = PagerSnapHelper()
                 pagerSnapHelper.attachToRecyclerView(binding.photoSlider)
@@ -78,7 +96,7 @@ class ExcursionFragment : Fragment() {
 
                 binding.allView.isVisible = true
                 binding.progress.isVisible = false
-                pictureAdapter = PicturesAdapter(this)
+                pictureAdapter = PicturesAdapter(this,this)
                 val curency = when (excursion?.price?.currency) {
                     "EUR" -> {
                         "€"
@@ -97,7 +115,8 @@ class ExcursionFragment : Fragment() {
                     val price =
                         excursion.price.per_group.value?.let { it1 ->
                             PerPerson(
-                                0.0, excursion.price.unit_string, false,
+                                0.0, excursion.price.unit_string,
+                                false,
                                 it1
                             )
                         }
@@ -136,11 +155,11 @@ class ExcursionFragment : Fragment() {
 
 
                 binding.apply {
-                    pictures.layoutManager = GridLayoutManager(requireContext(), 2)
-                    pictures.isNestedScrollingEnabled = false
-                    pictures.setHasFixedSize(true)
-
-                    pictures.adapter = pictureAdapter
+//                    pictures.layoutManager = GridLayoutManager(requireContext(), 2)
+//                    pictures.isNestedScrollingEnabled = false
+//                    pictures.setHasFixedSize(true)
+//
+//                    pictures.adapter = pictureAdapter
                     excursionTitle.text = excursion.title
                     reviewRating.text = excursion.rating.toString()
                     ratingBar.rating = excursion.rating.toFloat()
@@ -189,6 +208,15 @@ class ExcursionFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun photoClick(photo: Photo) {
+
+    }
+
+    override fun showMorePhoto() {
+        val action = ExcursionFragmentDirections.actionExcursionFragmentToPhotosFragment(allPhotos.toTypedArray())
+        findNavController().navigate(action)
     }
 
 
