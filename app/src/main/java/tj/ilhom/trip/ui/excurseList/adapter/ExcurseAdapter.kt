@@ -74,6 +74,7 @@ class ExcurseAdapter(
         holder.description.text = excurse?.tagline
 
         val pagerSnapHelper = PagerSnapHelper()
+        holder.backgroundImage.onFlingListener = null
         pagerSnapHelper.attachToRecyclerView(holder.backgroundImage)
         holder.indicator.attachToRecyclerView(holder.backgroundImage, pagerSnapHelper)
 
