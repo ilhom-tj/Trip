@@ -5,6 +5,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -20,9 +22,12 @@ class RetrofitInstance {
     fun provideOkHttpClient() =
         OkHttpClient.Builder().addInterceptor { chain ->
             val request = chain.request().newBuilder()
-                .addHeader("Authorization", "Token f5a21b7074a4ffd01da14e8bad6393eb65f42c2c").build()
+                .addHeader("Authorization", "Token f5a21b7074a4ffd01da14e8bad6393eb65f42c2c")
+                .build()
             chain.proceed(request)
-        }.build()
+        }
+            .addInterceptor(HttpLoggingInterceptor().setLevel(Level.BODY))
+            .build()
 
     @Singleton
     @Provides

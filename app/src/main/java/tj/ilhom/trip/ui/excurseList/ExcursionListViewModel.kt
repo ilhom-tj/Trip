@@ -2,12 +2,16 @@ package tj.ilhom.trip.ui.excurseList
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.paging.*
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.excurse.Tag
@@ -15,26 +19,30 @@ import tj.ilhom.trip.models.filter.FilterModel
 import tj.ilhom.trip.network.Repository
 import tj.ilhom.trip.ui.excurseList.dataSources.ExcureFilterDataSource
 import tj.ilhom.trip.ui.excurseList.dataSources.ExcursionDataSource
-import javax.inject.Inject
 
-@HiltViewModel
-class ExcursionListViewModel @Inject constructor(
-    private val repository: Repository
+class ExcursionListViewModel @AssistedInject constructor(
+    private val repository: Repository,
+    @Assisted private val city: City?
 ) : ViewModel() {
 
-    val filter = MutableLiveData<FilterModel>()
+    init {
+        viewModelScope.launch {
+            city?.let { getExcursion(it) }
+        }
+    }
 
+    private val _excursions: MutableStateFlow<PagingData<Excurse>> =
+        MutableStateFlow(PagingData.empty())
+    val excursion: Flow<PagingData<Excurse>> get() = _excursions
+
+    private val filter = MutableLiveData<FilterModel>()
 
     fun setFilter(filterModel: FilterModel) {
         filter.value = filterModel
     }
 
-
-    fun filterData(
-        city: Int,
-        filterModel: FilterModel
-    ): Flow<PagingData<Excurse>> {
-        return Pager(
+    suspend fun filterData(city: Int, filterModel: FilterModel) {
+        Pager(
             config = PagingConfig(
                 pageSize = 10,
                 enablePlaceholders = false
@@ -50,18 +58,15 @@ class ExcursionListViewModel @Inject constructor(
             .map {
                 it.filter { item ->
                     filterByType(item.type, filterModel)
-                }
-            }.map {
-                it.filter { item ->
+                }.filter { item ->
                     filterByMoveType(item.movement_type, filterModel)
-                }
-            }.map {
-                it.filter { item ->
+                }.filter { item ->
                     filterByTagType(item.tags, filterModel)
                 }
             }
-
-
+            .flowOn(Dispatchers.IO)
+            .cachedIn(viewModelScope)
+            .collect(_excursions::emit)
     }
 
 
@@ -131,8 +136,8 @@ class ExcursionListViewModel @Inject constructor(
         return true
     }
 
-    fun getExcursion(city: City): Flow<PagingData<Excurse>> {
-        return Pager(
+    suspend fun getExcursion(city: City) {
+        Pager(
             config = PagingConfig(
                 pageSize = 1,
                 enablePlaceholders = false
@@ -144,10 +149,13 @@ class ExcursionListViewModel @Inject constructor(
                 )
             },
         ).flow
+            .flowOn(Dispatchers.IO)
+            .cachedIn(viewModelScope)
+            .collect(_excursions::emit)
     }
 
-    fun searchExcursion(page: Int, city: City, query: String): Flow<PagingData<Excurse>> {
-        return Pager(
+    suspend fun searchExcursion(page: Int, city: City, query: String) {
+        Pager(
             config = PagingConfig(
                 pageSize = 10,
                 enablePlaceholders = false
@@ -159,8 +167,27 @@ class ExcursionListViewModel @Inject constructor(
                     query = query
                 )
             },
-        ).flow.cachedIn(CoroutineScope(Dispatchers.IO))
+        ).flow
+            .flowOn(Dispatchers.IO)
+            .cachedIn(CoroutineScope(Dispatchers.IO))
+            .collect(_excursions::emit)
+
     }
 
+    companion object {
+        fun provideFactory(
+            assistedFactory: Factory,
+            city: City?
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return assistedFactory.create(city) as T
+            }
+        }
+    }
 
+    @AssistedFactory
+    interface Factory {
+        fun create(@Assisted city: City?): ExcursionListViewModel
+    }
 }

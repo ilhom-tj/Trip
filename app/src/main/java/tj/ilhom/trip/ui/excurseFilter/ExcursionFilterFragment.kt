@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,11 +24,18 @@ import tj.ilhom.trip.ui.excurseFilter.adapter.SwitcherOnclick
 import tj.ilhom.trip.ui.excurseList.ExcursionListViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ExcursionFilterFragment : BottomSheetDialogFragment() {
 
-    private lateinit var viewModel: ExcursionListViewModel
+    @Inject
+    lateinit var factory: ExcursionListViewModel.Factory
+
+    private val viewModel: ExcursionListViewModel by activityViewModels {
+        ExcursionListViewModel.provideFactory(factory, null)
+    }
+
     private lateinit var binding: ExcursionFilterFragmentBinding
 
     private val args: ExcursionFilterFragmentArgs by navArgs()
@@ -80,18 +87,14 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         excursionTypeAdapter = FilterAdapter(this, object : SwitcherOnclick {
             override fun toggle(filter: String, isChecked: Boolean) {
                 when (isChecked) {
-                    true -> {
-                        this@ExcursionFilterFragment.filter.tripType.add(filter)
-                    }
-                    false -> {
-                        this@ExcursionFilterFragment.filter.tripType.remove(filter)
-                    }
+                    true -> this@ExcursionFilterFragment.filter.tripType.add(filter)
+                    false -> this@ExcursionFilterFragment.filter.tripType.remove(filter)
                 }
             }
         })
@@ -138,7 +141,6 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
         binding.excursionTagTypeRecycler.adapter = excursionTagTypeAdapter
 
 
-        viewModel = ViewModelProvider(this).get(ExcursionListViewModel::class.java)
         binding.rangeSeekBar.max = 15000
         binding.rangeSeekBar.minRange = 0
 
@@ -147,7 +149,11 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
             filter.endDate = binding.dateToEdt.text.toString()
             val mutableFilter = MutableLiveData<FilterModel>()
             mutableFilter.value = filter
-            findNavController().previousBackStackEntry?.savedStateHandle?.set("filter",mutableFilter.value)
+
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "filter",
+                mutableFilter.value
+            )
             findNavController().navigateUp()
         }
         binding.rangeSeekBar.seekBarChangeListener =

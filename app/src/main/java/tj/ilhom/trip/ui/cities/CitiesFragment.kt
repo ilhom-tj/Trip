@@ -1,19 +1,22 @@
 package tj.ilhom.trip.ui.cities
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.Utils.debounce
 import tj.ilhom.trip.databinding.CitiesFragmentBinding
@@ -21,54 +24,62 @@ import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.ui.cities.adapter.CityEvents
 import tj.ilhom.trip.ui.cities.adapter.CityListAdapter
 
+@AndroidEntryPoint
 class CitiesFragment : Fragment(), CityEvents {
 
-
-    private lateinit var viewModel: CitiesViewModel
-    private lateinit var binding: CitiesFragmentBinding
-    private lateinit var cityListAdapter: CityListAdapter
+    private val viewModel: CitiesViewModel by viewModels()
+    private var binding: CitiesFragmentBinding? = null
+    private var snackbar: Snackbar? = null
+    private val cityListAdapter by lazy { CityListAdapter(this) }
     private val searchQuery = MutableLiveData<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = CitiesFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(CitiesViewModel::class.java)
-        cityListAdapter = CityListAdapter(this, this)
-        binding.cityList.layoutManager = GridLayoutManager(requireContext(), 1)
-        binding.cityList.adapter = cityListAdapter
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        binding?.cityList?.layoutManager = GridLayoutManager(requireContext(), 1)
+        binding?.cityList?.adapter = cityListAdapter
 
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             viewModel.getCities().collect(cityListAdapter::submitData)
         }
 
-        binding.editSearchCity.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        binding?.editSearchCity?.doOnTextChanged { s, _, _, _ ->
+            searchQuery.value = s.toString()
+        }
 
+        lifecycleScope.launchWhenCreated {
+            cityListAdapter.loadStateFlow.collectLatest { states ->
+                binding?.pagingProgressBar?.isVisible =
+                    states.append is LoadState.Loading && binding?.progress?.isVisible == false
+                if (!cityListAdapter.snapshot().isNullOrEmpty()) {
+                    binding?.progress?.isVisible = false
+                }
+                when {
+                    states.append is LoadState.Error || states.refresh is LoadState.Error ->
+                        snackbar = noInternetSnackBar(binding?.cityList) { cityListAdapter.retry() }
+                }
             }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                searchQuery.value = s.toString()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
+        }
 
         searchQuery.debounce(1000).observe(viewLifecycleOwner) {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch {
                 viewModel.search(it).collect(cityListAdapter::submitData)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+        snackbar?.dismiss()
     }
 
     override fun cityOnClick(city: City) {
@@ -76,4 +87,12 @@ class CitiesFragment : Fragment(), CityEvents {
         findNavController().navigate(action)
     }
 
+}
+
+fun noInternetSnackBar(view: View?, action: (View) -> Unit): Snackbar? {
+    return view?.let {
+        Snackbar.make(it, "Нет подключения к интернету", Snackbar.LENGTH_INDEFINITE)
+            .setAction("Повторить", action)
+            .also { it.show() }
+    }
 }

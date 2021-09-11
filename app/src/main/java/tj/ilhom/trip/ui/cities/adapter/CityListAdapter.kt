@@ -7,17 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import tj.ilhom.trip.R
 import tj.ilhom.trip.models.city.City
 
-class CityListAdapter(
-    fragment : Fragment,
-    private val cityEvents: CityEvents
-) :
+class CityListAdapter(private val cityEvents: CityEvents) :
     PagingDataAdapter<City, CityListAdapter.ProductsViewHolder>(diffUtil) {
 
     var builder: AlertDialog.Builder? = null
@@ -35,13 +31,13 @@ class CityListAdapter(
     inner class ProductsViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
         var cityName: TextView = view.findViewById(R.id.city_name)
-        var locationQty : TextView = view.findViewById(R.id.locations_qty)
+        var locationQty: TextView = view.findViewById(R.id.locations_qty)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         val city: City? = getItem(position)
-        Log.e("CITY",city?.name_ru.toString())
+        Log.e("CITY", city?.name_ru.toString())
         holder.cityName.text = city?.name_ru
         holder.locationQty.text = city?.experience_count.toString()
         holder.itemView.setOnClickListener {

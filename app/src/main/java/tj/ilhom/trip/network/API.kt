@@ -14,7 +14,7 @@ interface API {
     @GET("/api/cities/")
     suspend fun getCities(
         @Query("page") page: Int,
-        @Query("page_size") size: Int = 10
+        @Query("page_size") size: Int = 15
     ): Response<CityResponse>
 
     @GET("/api/cities/")

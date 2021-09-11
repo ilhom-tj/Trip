@@ -7,7 +7,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.network.Repository
 import javax.inject.Inject
@@ -19,7 +21,7 @@ class CitiesViewModel @Inject constructor(
     fun getCities(): Flow<PagingData<City>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 1,
+                pageSize = 15,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
@@ -27,12 +29,15 @@ class CitiesViewModel @Inject constructor(
                     repo = repository
                 )
             },
-        ).flow.cachedIn(viewModelScope)
+        ).flow
+            .flowOn(Dispatchers.IO)
+            .cachedIn(viewModelScope)
     }
+
     fun search(name: String): Flow<PagingData<City>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 1,
+                pageSize = 15,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
@@ -41,6 +46,8 @@ class CitiesViewModel @Inject constructor(
                     name = name
                 )
             },
-        ).flow.cachedIn(viewModelScope)
+        ).flow
+            .flowOn(Dispatchers.IO)
+            .cachedIn(viewModelScope)
     }
 }
