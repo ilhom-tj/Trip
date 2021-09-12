@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.bumptech.glide.Glide
@@ -51,36 +50,37 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
         imageSliderAdapter = ImageSliderAdapter(R.layout.image_slider_solid)
 
         viewModel.getExcursion(args.excurse.id).observe(viewLifecycleOwner) { excursion ->
-            excursion.let {
-                allPhotos.addAll(it.photos)
+            excursion.let { excurse ->
+                allPhotos.addAll(excurse.photos)
 
                 Glide.with(requireActivity()).load(allPhotos[0].medium).into(binding.image1)
 
                 Glide.with(requireActivity()).load(allPhotos[1].medium).into(binding.image2)
 
-                Glide.with(requireActivity()).load(allPhotos[2].medium).into(binding.roundedImageView3)
+                Glide.with(requireActivity()).load(allPhotos[2].medium)
+                    .into(binding.roundedImageView3)
 
                 Glide.with(requireActivity()).load(allPhotos[3].medium).into(binding.image4)
 
                 binding.lastImage.setOnClickListener {
-                    val action = ExcursionFragmentDirections.actionExcursionFragmentToPhotosFragment(allPhotos.toTypedArray())
+                    val action =
+                        ExcursionFragmentDirections.actionExcursionFragmentToPhotosFragment(
+                            allPhotos.toTypedArray()
+                        )
                     findNavController().navigate(action)
                 }
 
-                if (it?.photos?.isNotEmpty() == true) {
-                    if (it.photos.size > 4) {
-                        val newImageArr = mutableListOf<Photo>()
-                        it.photos.forEachIndexed { index, photo ->
-                            if (index < 4) {
-                                Log.e("Index", index.toString())
-                                newImageArr.add(photo)
-                            }
+                if (excurse?.photos?.isNotEmpty() == true) {
+                    if (excurse.photos.size > 4) {
+                        val images = (0 until 4).map {
+                            excurse.photos[it]
                         }
-                        imageSliderAdapter.submitList(newImageArr ?: emptyList())
+                        imageSliderAdapter.submitList(images)
+                    } else {
+                        imageSliderAdapter.submitList(excurse.photos)
                     }
-                } else {
-                    imageSliderAdapter.submitList(it?.photos ?: emptyList())
-                }
+                } else imageSliderAdapter.submitList(excurse?.photos ?: emptyList())
+
 
                 binding.photoSlider.layoutManager = LinearLayoutManager(requireContext()).apply {
                     orientation = LinearLayoutManager.HORIZONTAL
@@ -96,7 +96,7 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
 
                 binding.allView.isVisible = true
                 binding.progress.isVisible = false
-                pictureAdapter = PicturesAdapter(this,this)
+                pictureAdapter = PicturesAdapter(this, this)
                 val curency = when (excursion?.price?.currency) {
                     "EUR" -> {
                         "€"
@@ -122,7 +122,8 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                         }
                     perPersonAdapter.setData(listOf(price!!))
                 } else {
-                    val price = PerPerson(0.0, excursion.price.unit_string, false, args.excurse.price.value)
+                    val price =
+                        PerPerson(0.0, excursion.price.unit_string, false, args.excurse.price.value)
                     perPersonAdapter.setData(listOf(price))
                 }
                 binding.back.setOnClickListener {
@@ -147,7 +148,8 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                 }
 
                 binding.reviewQty.setOnClickListener {
-                    val action = ExcursionFragmentDirections.actionExcursionFragmentToReviewFragment(args.excurse.id)
+                    val action =
+                        ExcursionFragmentDirections.actionExcursionFragmentToReviewFragment(args.excurse.id)
                     findNavController().navigate(action)
                 }
                 pictureAdapter.setData(arrayOfPhoto)
@@ -174,7 +176,9 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                     groupQty.text = "До " + excursion.max_persons.toString() + " человек"
                     binding.showMore.setOnClickListener {
                         val action =
-                            ExcursionFragmentDirections.actionExcursionFragmentToDescriptionFragment(excursion)
+                            ExcursionFragmentDirections.actionExcursionFragmentToDescriptionFragment(
+                                excursion
+                            )
                         findNavController().navigate(action)
                     }
                     if (excursion.child_friendly) {
@@ -215,7 +219,8 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
     }
 
     override fun showMorePhoto() {
-        val action = ExcursionFragmentDirections.actionExcursionFragmentToPhotosFragment(allPhotos.toTypedArray())
+        val action =
+            ExcursionFragmentDirections.actionExcursionFragmentToPhotosFragment(allPhotos.toTypedArray())
         findNavController().navigate(action)
     }
 

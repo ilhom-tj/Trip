@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,13 +20,15 @@ import tj.ilhom.trip.R
 import tj.ilhom.trip.databinding.ExcursionListFragmentBinding
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.filter.FilterModel
-import tj.ilhom.trip.ui.cities.onSearch
+import tj.ilhom.trip.ui.collectLoadStates
 import tj.ilhom.trip.ui.excurseList.adapter.ExcurseAdapter
 import tj.ilhom.trip.ui.excurseList.adapter.ExcursionEvent
+import tj.ilhom.trip.ui.onSearch
 
 @AndroidEntryPoint
 class ExcursionListFragment : Fragment(), ExcursionEvent {
 
+    private var snackbar: Snackbar? = null
     private val viewModel: ExcursionListViewModel by navGraphViewModels(R.id.excurseFragment) {
         defaultViewModelProviderFactory
     }
@@ -40,9 +43,7 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
 
         binding = ExcursionListFragmentBinding.inflate(inflater, container, false)
         return binding.root
-
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,6 +62,12 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
         binding.editSearchExcursion.onSearch {
             search(binding.editSearchExcursion.text.toString())
             requireContext()
+        }
+
+        lifecycleScope.launchWhenCreated {
+            excurseAdapter.collectLoadStates(binding.progress, binding.pagingProgressBar) {
+                snackbar = it
+            }
         }
 
         binding.editSearchExcursion.doOnTextChanged { text, start, before, count ->
@@ -88,20 +95,23 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
 
     }
 
-
     override fun excursionClick(excurse: Excurse) {
         val action = ExcursionListFragmentDirections
             .actionExcurseFragmentToExcursionFragment(excurse)
         findNavController().navigate(action)
     }
 
-    fun search(query: String) {
-        Log.e("Search", query)
+    private fun search(query: String) {
         lifecycleScope.launch {
-            Log.e("search", query)
             viewModel.searchExcursion(city = args.city, query)
                 .collect(excurseAdapter::submitData)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        snackbar?.dismiss()
+
     }
 }
 

@@ -1,32 +1,26 @@
 package tj.ilhom.trip.ui.cities
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import tj.ilhom.trip.Utils.debounce
 import tj.ilhom.trip.databinding.CitiesFragmentBinding
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.ui.cities.adapter.CityEvents
 import tj.ilhom.trip.ui.cities.adapter.CityListAdapter
+import tj.ilhom.trip.ui.collectLoadStates
+import tj.ilhom.trip.ui.onSearch
 
 
 @AndroidEntryPoint
@@ -36,7 +30,6 @@ class CitiesFragment : Fragment(), CityEvents {
     private var binding: CitiesFragmentBinding? = null
     private var snackbar: Snackbar? = null
     private val cityListAdapter by lazy { CityListAdapter(this, this) }
-    private val searchQuery = MutableLiveData<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,36 +54,24 @@ class CitiesFragment : Fragment(), CityEvents {
         }
 
         binding?.editSearchCity?.doOnTextChanged { s, _, _, c ->
-            if (c > 1) searchQuery.value = s.toString()
+            if (c > 1) search(s.toString())
             else lifecycleScope.launch {
                 viewModel.getCities()
             }
         }
 
         binding?.editSearchCity?.onSearch {
-            searchQuery.value = binding?.editSearchCity?.text.toString()
+            search(binding?.editSearchCity?.text.toString())
             requireContext()
         }
 
         lifecycleScope.launchWhenCreated {
-            cityListAdapter.loadStateFlow.collectLatest { states ->
-                binding?.pagingProgressBar?.isVisible =
-                    states.append is LoadState.Loading && binding?.progress?.isVisible == false
-                if (!cityListAdapter.snapshot().isNullOrEmpty()) {
-                    binding?.progress?.isVisible = false
-                }
-                when {
-                    states.append is LoadState.Error || states.refresh is LoadState.Error ->
-                        snackbar = noInternetSnackBar(binding?.cityList) { cityListAdapter.retry() }
-                }
-            }
+            cityListAdapter.collectLoadStates(
+                binding?.progress,
+                binding?.pagingProgressBar
+            ) { snackbar = it }
         }
 
-        searchQuery.debounce(500).observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
-                viewModel.search(it)
-            }
-        }
     }
 
     override fun onDestroyView() {
@@ -104,24 +85,11 @@ class CitiesFragment : Fragment(), CityEvents {
         findNavController().navigate(action)
     }
 
-}
-
-fun noInternetSnackBar(view: View?, action: (View) -> Unit): Snackbar? {
-    return view?.let { v ->
-        Snackbar.make(v, "Нет подключения к интернету", Snackbar.LENGTH_INDEFINITE)
-            .setAction("Повторить", action)
-            .also { it.show() }
-    }
-}
-
-fun EditText.onSearch(callback: () -> Context) {
-    setOnEditorActionListener { _, actionId, _ ->
-        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            val context = callback.invoke()
-            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-            imm?.hideSoftInputFromWindow(this.windowToken, 0)
-            return@setOnEditorActionListener true
+    private fun search(q: String) {
+        lifecycleScope.launch {
+            delay(500)
+            viewModel.search(q)
         }
-        false
     }
+
 }

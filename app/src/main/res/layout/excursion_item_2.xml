@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
     android:layout_marginBottom="35dp">
 
 
@@ -14,11 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/image_slider" />
+        tools:listitem="@layout/image_slider"
+        android:focusable="true" />
 
     <me.relex.circleindicator.CircleIndicator2
         android:id="@+id/indicator"

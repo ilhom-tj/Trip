@@ -53,7 +53,7 @@ class ExcurseAdapter(
 
         holder.description.text = excurse?.tagline
         holder.excurseName.text = excurse?.title
-        holder.excurseReview.text = "${excurse?.review_count} отзыва"
+        holder.excurseReview.text = "${excurse?.review_count} отзывов"
         val curency = when (excurse?.price?.currency) {
             "EUR" -> {
                 "€"
@@ -86,19 +86,6 @@ class ExcurseAdapter(
         val imageAdapter = ImageSliderAdapter(R.layout.image_slider)
         holder.backgroundImage.adapter = imageAdapter
         if (excurse?.photos?.isNotEmpty() == true) {
-
-            // FIXME ILHOM recycler view ай пушти хами гум мешид, надо разобраться
-//            if (excurse.photos.size > 4) {
-//                val newImageArr = mutableListOf<Photo>()
-//                excurse.photos.forEachIndexed { index, photo ->
-//                    if (index < 4) {
-//                        Log.e("Index", index.toString())
-//                        newImageArr.add(photo)
-//                    }
-//                }
-//                imageAdapter.submitList(newImageArr ?: emptyList())
-//            }
-//        } else {
             if (excurse.photos.size >4){
                 val images = (0 until 4).map {
                     excurse.photos[it]
@@ -107,9 +94,6 @@ class ExcurseAdapter(
             }else{
                 imageAdapter.submitList(excurse.photos)
             }
-
-
-            Log.e("Images",excurse.photos.size.toString())
         }
 
         if (holder.backgroundImage.onFlingListener == null) {

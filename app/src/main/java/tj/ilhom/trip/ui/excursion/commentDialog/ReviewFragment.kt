@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SnapHelper
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.R
 import tj.ilhom.trip.databinding.ReviewFragmentBinding
+import tj.ilhom.trip.ui.collectLoadStates
 import tj.ilhom.trip.ui.excursion.commentDialog.adapter.ReviewAdapter
 
 class ReviewFragment : BottomSheetDialogFragment() {
@@ -22,6 +26,7 @@ class ReviewFragment : BottomSheetDialogFragment() {
     private lateinit var viewModel: ReviewViewModel
     private lateinit var adapter: ReviewAdapter
     private val args: ReviewFragmentArgs by navArgs()
+    private var snackbar: Snackbar? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,8 +46,13 @@ class ReviewFragment : BottomSheetDialogFragment() {
         }
         binding.reviews.adapter = adapter
 
+        lifecycleScope.launch {
+            adapter.collectLoadStates(binding.progress, binding.pagingProgressBar){
+                snackbar = it
+            }
+        }
 
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             viewModel.getReview(args.excurseId)
                 .collect(adapter::submitData)
         }
@@ -54,5 +64,10 @@ class ReviewFragment : BottomSheetDialogFragment() {
     }
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        snackbar?.dismiss()
+    }
 
 }
