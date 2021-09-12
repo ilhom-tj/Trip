@@ -170,15 +170,16 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
 
         priceFrom.observe(viewLifecycleOwner) {
             it.let { price ->
-                filter.startPrice = price.toDouble()
+                filter.startPrice = price.toInt()
                 val currency = CurrencyConverter.getCurrencyEmblem(args.country.currency)
                 binding.priceFromEdt.setText("$price $currency")
             }
         }
 
+
         priceTo.observe(viewLifecycleOwner) {
             it.let { price ->
-                filter.startPrice = price.toDouble()
+                filter.startPrice = price.toInt()
                 val currency = CurrencyConverter.getCurrencyEmblem(args.country.currency)
                 binding.priceToEdit.setText("$price $currency")
 

@@ -47,16 +47,17 @@ class APIHelperImpl @Inject constructor(
     override suspend fun filtredExcursion(
         page: Int,
         city: Int,
-        startPrice: Double?,
-        endPrice: Double?,
+        startPrice: Int?,
+        endPrice: Int?,
         startDate: String?,
         endDate: String?
     ): Response<ExcurseResponse> {
+
         return apiService.getExperiencesFiltred(
             page = page,
             cityId = city,
-            startPrice = startPrice.toString(),
-            endPrice =  endPrice.toString(),
+            startPrice = startPrice,
+            endPrice =  endPrice,
             startDate = startDate,
             endDate = endDate
         )

@@ -21,8 +21,8 @@ interface APIHelper {
     suspend fun filtredExcursion(
         page: Int,
         city : Int,
-        startPrice: Double? = null,
-        endPrice: Double? = null,
+        startPrice: Int? = null,
+        endPrice: Int? = null,
         startDate: String? = null,
         endDate: String? = null
     ): Response<ExcurseResponse>
