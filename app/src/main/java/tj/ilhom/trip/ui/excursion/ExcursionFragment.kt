@@ -76,10 +76,10 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                                 newImageArr.add(photo)
                             }
                         }
-                        imageSliderAdapter.setData(newImageArr ?: emptyList())
+                        imageSliderAdapter.submitList(newImageArr ?: emptyList())
                     }
                 } else {
-                    imageSliderAdapter.setData(it?.photos ?: emptyList())
+                    imageSliderAdapter.submitList(it?.photos ?: emptyList())
                 }
 
                 binding.photoSlider.layoutManager = LinearLayoutManager(requireContext()).apply {

@@ -5,20 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import tj.ilhom.trip.R
 import tj.ilhom.trip.models.excurse.Photo
 
-class ImageSliderAdapter(val layout : Int) :
-    RecyclerView.Adapter<ImageSliderAdapter.ViewHolder>() {
-    private var data = emptyList<Photo>()
+class ImageSliderAdapter(val layout: Int) :
+    ListAdapter<Photo, ImageSliderAdapter.ViewHolder>(diffUtil) {
 
-    fun setData(list: List<Photo>) {
-        data = list
-        notifyDataSetChanged()
-    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.image)
@@ -32,13 +28,20 @@ class ImageSliderAdapter(val layout : Int) :
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val image: Photo = data[position]
-        Glide.with(viewHolder.itemView.context)
-            .load(image.medium)
-            .into(viewHolder.image)
+        getItem(position)?.let {
+            Glide.with(viewHolder.itemView.context)
+                .load(it.medium)
+                .into(viewHolder.image)
+        }
     }
 
-    override fun getItemCount() = data.size
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<Photo>() {
+            override fun areItemsTheSame(oldItem: Photo, newItem: Photo) =
+                oldItem.medium == newItem.medium
 
-    private fun getLastIndex() = data.lastIndex
+            override fun areContentsTheSame(oldItem: Photo, newItem: Photo) = oldItem == newItem
+
+        }
+    }
 }

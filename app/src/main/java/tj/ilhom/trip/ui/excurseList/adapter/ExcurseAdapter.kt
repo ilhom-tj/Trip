@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import me.relex.circleindicator.CircleIndicator2
@@ -49,37 +48,10 @@ class ExcurseAdapter(
 
     @SuppressLint("SetTextI18n", "CheckResult")
     override fun onBindViewHolder(holder: ExcurseViewHolder, position: Int) {
+
         val excurse: Excurse? = getItem(position)
-        val imageAdapter = ImageSliderAdapter(R.layout.image_slider)
-        if (excurse?.photos?.isNotEmpty() == true) {
-            if (excurse.photos.size > 4) {
-                val newImageArr = mutableListOf<Photo>()
-                excurse.photos.forEachIndexed { index, photo ->
-                    if (index < 4) {
-                        Log.e("Index", index.toString())
-                        newImageArr.add(photo)
-                    }
-                }
-                imageAdapter.setData(newImageArr ?: emptyList())
-            }
-        } else {
-            imageAdapter.setData(excurse?.photos ?: emptyList())
-        }
-//        imageAdapter.setData(excurse?.photos ?: emptyList())
-        holder.backgroundImage.layoutManager = LinearLayoutManager(holder.itemView.context).apply {
-            orientation = LinearLayoutManager.HORIZONTAL
-        }
-        holder.backgroundImage.adapter = imageAdapter
 
         holder.description.text = excurse?.tagline
-
-        val pagerSnapHelper = PagerSnapHelper()
-        holder.backgroundImage.onFlingListener = null
-        pagerSnapHelper.attachToRecyclerView(holder.backgroundImage)
-        holder.indicator.attachToRecyclerView(holder.backgroundImage, pagerSnapHelper)
-
-
-
         holder.excurseName.text = excurse?.title
         holder.excurseReview.text = "${excurse?.review_count} отзыва"
         val curency = when (excurse?.price?.currency) {
@@ -106,6 +78,29 @@ class ExcurseAdapter(
                 excursionEvent.excursionClick(excurse)
             }
         }
+        val imageAdapter = ImageSliderAdapter(R.layout.image_slider)
+        holder.backgroundImage.adapter = imageAdapter
+        if (excurse?.photos?.isNotEmpty() == true) {
+            // FIXME ILHOM recycler view ай пушти хами гум мешид, надо разобраться
+//            if (excurse.photos.size > 4) {
+//                val newImageArr = mutableListOf<Photo>()
+//                excurse.photos.forEachIndexed { index, photo ->
+//                    if (index < 4) {
+//                        Log.e("Index", index.toString())
+//                        newImageArr.add(photo)
+//                    }
+//                }
+//                imageAdapter.submitList(newImageArr ?: emptyList())
+//            }
+//        } else {
+            imageAdapter.submitList(excurse.photos)
+        }
+
+        if (holder.backgroundImage.onFlingListener == null) {
+            val pagerSnapHelper = PagerSnapHelper()
+            pagerSnapHelper.attachToRecyclerView(holder.backgroundImage)
+            holder.indicator.attachToRecyclerView(holder.backgroundImage, pagerSnapHelper)
+        }
     }
 
     companion object {
@@ -116,12 +111,6 @@ class ExcurseAdapter(
             override fun areContentsTheSame(oldItem: Excurse, newItem: Excurse) =
                 oldItem == newItem
         }
-    }
-
-    override fun onViewAttachedToWindow(holder: ExcurseViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        holder.backgroundImage.onFlingListener = null
-
     }
 
 }

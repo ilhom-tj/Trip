@@ -43,7 +43,7 @@ class PhotosFragment : Fragment(), StoriesProgressView.StoriesListener {
 //        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         viewModel = ViewModelProvider(this).get(PhotosViewModel::class.java)
         imageSliderAdapter = ImageSliderAdapter(R.layout.image_slider_solid)
-        imageSliderAdapter.setData(args.photos.toList())
+        imageSliderAdapter.submitList(args.photos.toList())
 
 
         Log.e("Size",args.photos.size.toString())

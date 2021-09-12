@@ -134,7 +134,7 @@ class ExcursionListViewModel @Inject constructor(
     fun getExcursion(city: City): Flow<PagingData<Excurse>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 1,
+                pageSize = 10,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
