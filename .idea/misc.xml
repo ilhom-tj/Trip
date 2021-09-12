@@ -13,9 +13,9 @@
         <entry key="app/src/main/res/layout/cities_fragment.xml" value="0.29129464285714285" />
         <entry key="app/src/main/res/layout/city_list_item.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/layout/description_fragment.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/excursion_fragment.xml" value="0.41131105398457585" />
+        <entry key="app/src/main/res/layout/excursion_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/excursion_item.xml" value="0.24166666666666667" />
-        <entry key="app/src/main/res/layout/excursion_item_2.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/excursion_item_2.xml" value="0.67" />
         <entry key="app/src/main/res/layout/excursion_list_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/image_slider.xml" value="0.2962962962962963" />
         <entry key="app/src/main/res/layout/image_slider_solid.xml" value="0.1" />

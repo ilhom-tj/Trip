@@ -97,9 +97,8 @@
         android:id="@+id/guide_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="0.3"
         android:text="3,5 часа"
-        android:textColor="@color/black"
+        android:textColor="#737373"
         app:layout_constraintBottom_toBottomOf="@+id/review_qty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/review_qty" />
