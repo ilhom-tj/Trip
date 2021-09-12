@@ -3,15 +3,17 @@ package tj.ilhom.trip.ui.photosFragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import android.view.View.OnTouchListener
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import jp.shts.android.storiesprogressview.StoriesProgressView
-import kotlinx.android.synthetic.main.photos_fragment.view.*
 import tj.ilhom.trip.R
 import tj.ilhom.trip.databinding.PhotosFragmentBinding
 import tj.ilhom.trip.ui.excurseList.adapter.ImageSliderAdapter
@@ -20,15 +22,15 @@ import tj.ilhom.trip.ui.excurseList.adapter.ImageSliderAdapter
 class PhotosFragment : Fragment(), StoriesProgressView.StoriesListener {
 
     private lateinit var viewModel: PhotosViewModel
-    private lateinit var binding : PhotosFragmentBinding
+    private lateinit var binding: PhotosFragmentBinding
     private lateinit var imageSliderAdapter: ImageSliderAdapter
-    private val args : PhotosFragmentArgs by navArgs()
+    private val args: PhotosFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = PhotosFragmentBinding.inflate(inflater,container,false)
+        binding = PhotosFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -36,7 +38,6 @@ class PhotosFragment : Fragment(), StoriesProgressView.StoriesListener {
     private var limit = 500L
     private var counter = 0
 
-    var index = 0
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -46,7 +47,7 @@ class PhotosFragment : Fragment(), StoriesProgressView.StoriesListener {
         imageSliderAdapter.submitList(args.photos.toList())
 
 
-        Log.e("Size",args.photos.size.toString())
+        Log.e("Size", args.photos.size.toString())
         Glide.with(requireContext()).load(args.photos[counter].medium).into(binding.image)
 
         binding.stories.setStoriesCount(counter)
@@ -70,10 +71,11 @@ class PhotosFragment : Fragment(), StoriesProgressView.StoriesListener {
     }
 
     override fun onPrev() {
-        if ((args.photos.size-1) < 0){
+        if (counter <= 0) {
             return
         }
         Glide.with(requireActivity()).load(args.photos[--counter].medium).into(binding.image)
+
     }
 
     override fun onComplete() {
@@ -85,6 +87,7 @@ class PhotosFragment : Fragment(), StoriesProgressView.StoriesListener {
         super.onDestroy()
 
     }
+
     @SuppressLint("ClickableViewAccessibility")
     private val onTouchListener = OnTouchListener { v, event -> // inside on touch method we are
         // getting action on below line.
@@ -114,8 +117,6 @@ class PhotosFragment : Fragment(), StoriesProgressView.StoriesListener {
         }
         false
     }
-
-
 
 
 }
