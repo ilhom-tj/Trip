@@ -63,6 +63,7 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:padding="16dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_baseline_arrow_back_24"
@@ -74,6 +75,7 @@
                 android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:padding="16dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/share"
@@ -83,16 +85,20 @@
 
             <TextView
                 android:id="@+id/excursion_title"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="16dp"
                 android:paddingEnd="16dp"
-                android:paddingBottom="5dp"
+                android:paddingBottom="3dp"
                 android:text="Калининград на одном дыхании"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textFontWeight="900"
+                android:textSize="17sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/photo_slider" />
 
 
@@ -102,15 +108,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/review_corner_small"
-                android:lineSpacingExtra="0sp"
                 android:paddingStart="11dp"
-                android:paddingTop="18dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="17dp"
+                android:paddingEnd="11dp"
+                android:paddingTop="11dp"
                 android:text="8.9"
+                android:textFontWeight="600"
                 android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/excursion_title" />
 
@@ -119,16 +123,16 @@
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
                 android:numStars="5"
                 android:progressTint="#F8B704"
                 android:rating="5"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="6dp"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
                 android:stepSize="1"
-                app:layout_constraintStart_toEndOf="@id/review_rating"
-                app:layout_constraintTop_toTopOf="@id/review_rating" />
+                app:layout_constraintStart_toStartOf="@+id/review_qty"
+                app:layout_constraintTop_toTopOf="@+id/review_rating" />
 
             <TextView
                 android:id="@+id/review_qty"
@@ -138,6 +142,7 @@
                 android:text="72 отзыва"
                 android:textColor="#1A73E8"
                 android:textSize="16sp"
+                android:textFontWeight="300"
                 app:layout_constraintBottom_toBottomOf="@id/review_rating"
                 app:layout_constraintStart_toEndOf="@id/review_rating"
                 app:layout_constraintTop_toBottomOf="@id/ratingBar"
@@ -148,11 +153,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="37dp"
                 android:text="Описание экскурсии"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -163,14 +168,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="11dp"
+                android:layout_marginTop="9dp"
                 android:layout_marginEnd="16dp"
                 android:letterSpacing="0"
                 android:lineSpacingExtra="7sp"
                 android:maxLines="3"
                 android:text="Lorem"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description_label" />
@@ -184,7 +189,7 @@
                 android:paddingEnd="16dp"
                 android:text="узнать больше"
                 android:textColor="@color/blue"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintTop_toBottomOf="@+id/description" />
 
             <TextView
@@ -192,11 +197,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="26dp"
                 android:maxLines="3"
                 android:text="Длительность:"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/show_more" />
@@ -209,7 +214,7 @@
                 android:maxLines="3"
                 android:text="3,5 часа"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/duration_label"
                 app:layout_constraintStart_toEndOf="@+id/duration_label" />
 
@@ -217,11 +222,11 @@
                 android:id="@+id/group_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="11dp"
                 android:maxLines="3"
                 android:text="Размер группы:"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/duration_label"
                 app:layout_constraintTop_toBottomOf="@+id/duration_label" />
@@ -235,7 +240,7 @@
                 android:paddingEnd="16dp"
                 android:text="3,5 часа"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/group_label"
                 app:layout_constraintStart_toEndOf="@+id/group_label" />
 
@@ -243,11 +248,11 @@
                 android:id="@+id/childs_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="11dp"
                 android:maxLines="3"
                 android:text="Дети:"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/group_label"
                 app:layout_constraintTop_toBottomOf="@+id/group_label" />
@@ -261,7 +266,7 @@
                 android:paddingEnd="16dp"
                 android:text="3,5 часа"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/childs_label"
                 app:layout_constraintStart_toEndOf="@+id/childs_label" />
 
@@ -269,11 +274,11 @@
                 android:id="@+id/how_it_comes_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="11dp"
                 android:maxLines="3"
                 android:text="Как проходит:"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/childs_label"
                 app:layout_constraintTop_toBottomOf="@+id/child" />
@@ -287,7 +292,7 @@
                 android:paddingEnd="16dp"
                 android:text="3,5 часа"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/how_it_comes_label"
                 app:layout_constraintStart_toEndOf="@+id/how_it_comes_label" />
 
@@ -295,11 +300,11 @@
                 android:id="@+id/photos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="34dp"
+                android:layout_marginTop="30dp"
                 android:maxLines="3"
                 android:text="Фотографии экскурсии"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/how_it_comes_label"
                 app:layout_constraintTop_toBottomOf="@+id/how_it_comes" />
@@ -387,29 +392,24 @@
 
                         <ImageView
                             android:id="@+id/imageView2"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_margin="40dp"
-
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:src="@drawable/photo_gallary"
-                            app:layout_constraintBottom_toBottomOf="@+id/image4"
+                            app:layout_constraintBottom_toTopOf="@+id/picturesLeft"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="@+id/image4"
-                            app:layout_constraintTop_toTopOf="@+id/image4"
-                            app:layout_constraintVertical_bias="0" />
+                            app:layout_constraintTop_toTopOf="@+id/image4" />
 
                         <TextView
                             android:id="@+id/picturesLeft"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:text="Еще 5 фото"
                             android:textColor="@color/white"
-                            android:textSize="18sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/image4"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
+                            android:textSize="17sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/image4"
                             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
@@ -421,11 +421,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
                 android:maxLines="3"
-                android:layout_marginTop="33dp"
                 android:text="Стоимость экскурсии"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/photo_gallary" />
