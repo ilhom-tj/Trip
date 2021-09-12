@@ -5,8 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class FilterModel(
-    var startPrice: Double? = null,
-    var endPrice: Double? = null,
+    var startPrice: Int? = null,
+    var endPrice: Int? = null,
     var startDate: String? = null,
     var endDate: String? = null,
     var tripType: MutableList<String> = mutableListOf(),
