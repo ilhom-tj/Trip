@@ -79,7 +79,7 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
 
         binding.filters.setOnClickListener {
             val action =
-                ExcursionListFragmentDirections.actionExcurseFragmentToExcursionFilterFragment(args.city.id)
+                ExcursionListFragmentDirections.actionExcurseFragmentToExcursionFilterFragment(args.city.country)
             findNavController().navigate(action)
         }
 

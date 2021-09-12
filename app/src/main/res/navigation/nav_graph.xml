@@ -22,7 +22,7 @@
             android:label="excursion_filter_fragment" tools:layout="@layout/excursion_filter_fragment">
         <action android:id="@+id/action_excursionFilterFragment_to_excurseFragment"
                 app:destination="@id/excurseFragment"/>
-        <argument android:name="cityId" app:argType="integer"/>
+        <argument android:name="country" app:argType="tj.ilhom.trip.models.city.Country"/>
     </dialog>
     <fragment android:id="@+id/excursionFragment" android:name="tj.ilhom.trip.ui.excursion.ExcursionFragment"
               android:label="excursion_fragment" tools:layout="@layout/excursion_fragment">

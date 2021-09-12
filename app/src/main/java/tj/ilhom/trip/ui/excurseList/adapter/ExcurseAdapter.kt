@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import me.relex.circleindicator.CircleIndicator2
 import tj.ilhom.trip.R
+import tj.ilhom.trip.Utils.CurrencyConverter
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.excurse.Photo
 
@@ -54,15 +55,8 @@ class ExcurseAdapter(
         holder.description.text = excurse?.tagline
         holder.excurseName.text = excurse?.title
         holder.excurseReview.text = "${excurse?.review_count} отзывов"
-        val curency = when (excurse?.price?.currency) {
-            "EUR" -> {
-                "€"
-            }
-            "USD" -> {
-                "$"
-            }
-            else -> "₽"
-        }
+        val curency = CurrencyConverter.getCurrencyEmblem(excurse?.price?.currency.toString())
+
         if (excurse?.price?.per_person?.isNotEmpty() == true) {
             holder.excursePrice.text = "${excurse.price.per_person[0].value} $curency"
         } else if (excurse?.price?.per_group != null) {

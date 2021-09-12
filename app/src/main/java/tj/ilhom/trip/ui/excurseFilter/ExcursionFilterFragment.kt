@@ -17,6 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.innovattic.rangeseekbar.RangeSeekBar
 import dagger.hilt.android.AndroidEntryPoint
 import tj.ilhom.trip.R
+import tj.ilhom.trip.Utils.CurrencyConverter
 import tj.ilhom.trip.databinding.ExcursionFilterFragmentBinding
 import tj.ilhom.trip.models.filter.FilterModel
 import tj.ilhom.trip.ui.excurseFilter.adapter.FilterAdapter
@@ -170,14 +171,17 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
         priceFrom.observe(viewLifecycleOwner) {
             it.let { price ->
                 filter.startPrice = price.toDouble()
-                binding.priceFromEdt.setText("$price ₽")
+                val currency = CurrencyConverter.getCurrencyEmblem(args.country.currency)
+                binding.priceFromEdt.setText("$price $currency")
             }
         }
 
         priceTo.observe(viewLifecycleOwner) {
             it.let { price ->
-                filter.endPrice = price.toDouble()
-                binding.priceToEdit.setText("$price ₽")
+                filter.startPrice = price.toDouble()
+                val currency = CurrencyConverter.getCurrencyEmblem(args.country.currency)
+                binding.priceToEdit.setText("$price $currency")
+
             }
         }
 
