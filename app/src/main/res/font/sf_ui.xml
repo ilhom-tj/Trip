@@ -6,7 +6,12 @@
         app:fontWeight="400" />
 
     <font
-        app:font="@font/sf_ui_heavy"
+        app:font="@font/sf_ui_bold"
         app:fontStyle="normal"
         app:fontWeight="800" />
+
+    <font
+        app:font="@font/sf_ui_heavy"
+        app:fontStyle="normal"
+        app:fontWeight="900" />
 </font-family>
