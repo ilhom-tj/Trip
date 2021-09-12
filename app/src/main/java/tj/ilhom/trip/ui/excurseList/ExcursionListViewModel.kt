@@ -1,5 +1,6 @@
 package tj.ilhom.trip.ui.excurseList
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.*
@@ -24,11 +25,6 @@ class ExcursionListViewModel @Inject constructor(
 ) : ViewModel() {
 
     val filter = MutableLiveData<FilterModel>()
-
-    fun setFilter(filterModel: FilterModel) {
-        filter.value = filterModel
-    }
-
 
     fun filterData(
         city: Int,
@@ -146,7 +142,8 @@ class ExcursionListViewModel @Inject constructor(
         ).flow
     }
 
-    fun searchExcursion(page: Int, city: City, query: String): Flow<PagingData<Excurse>> {
+    fun searchExcursion(city: City, query: String): Flow<PagingData<Excurse>> {
+
         return Pager(
             config = PagingConfig(
                 pageSize = 10,

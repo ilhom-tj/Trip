@@ -78,9 +78,15 @@ class ExcurseAdapter(
                 excursionEvent.excursionClick(excurse)
             }
         }
+        holder.backgroundImage.setOnClickListener {
+            if (excurse != null) {
+                excursionEvent.excursionClick(excurse)
+            }
+        }
         val imageAdapter = ImageSliderAdapter(R.layout.image_slider)
         holder.backgroundImage.adapter = imageAdapter
         if (excurse?.photos?.isNotEmpty() == true) {
+
             // FIXME ILHOM recycler view ай пушти хами гум мешид, надо разобраться
 //            if (excurse.photos.size > 4) {
 //                val newImageArr = mutableListOf<Photo>()
@@ -93,7 +99,17 @@ class ExcurseAdapter(
 //                imageAdapter.submitList(newImageArr ?: emptyList())
 //            }
 //        } else {
-            imageAdapter.submitList(excurse.photos)
+            if (excurse.photos.size >4){
+                val images = (0 until 4).map {
+                    excurse.photos[it]
+                }
+                imageAdapter.submitList(images)
+            }else{
+                imageAdapter.submitList(excurse.photos)
+            }
+
+
+            Log.e("Images",excurse.photos.size.toString())
         }
 
         if (holder.backgroundImage.onFlingListener == null) {
