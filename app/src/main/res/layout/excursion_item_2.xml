@@ -27,11 +27,13 @@
     <me.relex.circleindicator.CircleIndicator2
         android:id="@+id/indicator"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         app:ci_drawable="@drawable/image_view_round"
-        app:ci_drawable_unselected="@drawable/image_view_round"
+        app:ci_drawable_unselected="@drawable/image_view_round_unselected"
         app:ci_height="2dp"
-        app:ci_width="10dp"
+        app:ci_width="20dp"
+        android:layout_marginBottom="7dp"
+        app:ci_animator="@animator/ci_animator"
         app:layout_constraintBottom_toBottomOf="@+id/imageSlider"
         app:layout_constraintEnd_toEndOf="@+id/imageSlider"
         app:layout_constraintStart_toStartOf="@+id/imageSlider"
@@ -64,6 +66,7 @@
         android:textColor="@color/black"
         android:textSize="26sp"
         android:textStyle="bold"
+        android:textFontWeight="800"
         app:layout_constraintBottom_toBottomOf="@+id/excursion_title"
         app:layout_constraintEnd_toEndOf="@+id/imageSlider" />
 
@@ -72,8 +75,7 @@
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-
+        android:layout_marginTop="8dp"
         android:numStars="5"
         android:progressTint="#F8B704"
         android:rating="5"
@@ -85,7 +87,7 @@
         android:id="@+id/review_qty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="14dp"
         android:text="72 отзыва"
         android:textAlignment="center"
         android:textColor="#1A73E8"
@@ -107,7 +109,9 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="Lorem msdimiamsi mai msai nsi nasun iau aisub as bsaiu basiu bias bsau iasbu basiu bia bisa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

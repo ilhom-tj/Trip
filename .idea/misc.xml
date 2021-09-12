@@ -17,10 +17,11 @@
         <entry key="app/src/main/res/layout/description_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/excursion_fragment.xml" value="0.42128935532233885" />
         <entry key="app/src/main/res/layout/excursion_item.xml" value="0.24166666666666667" />
-        <entry key="app/src/main/res/layout/excursion_item_2.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/excursion_item_2.xml" value="0.5622188905547226" />
         <entry key="app/src/main/res/layout/excursion_list_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/image_slider.xml" value="0.2962962962962963" />
         <entry key="app/src/main/res/layout/image_slider_solid.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/per_person_item.xml" value="0.3676923076923077" />
         <entry key="app/src/main/res/layout/photos_fragment.xml" value="0.3734375" />
         <entry key="app/src/main/res/layout/review_fragment.xml" value="0.3734375" />
       </map>
