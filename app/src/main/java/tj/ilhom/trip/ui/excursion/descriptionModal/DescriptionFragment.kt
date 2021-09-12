@@ -44,6 +44,7 @@ class DescriptionFragment : BottomSheetDialogFragment() {
 
             Glide.with(requireContext())
                 .load(args.excursion.guide.avatar.medium)
+                .placeholder(R.drawable.profile)
                 .into(binding.guideAvatar)
             guideName.text = args.excursion.guide.first_name
             if (!args.excursion.guide.description.isNullOrEmpty()) {

@@ -140,8 +140,8 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
 
 
         viewModel = ViewModelProvider(this).get(ExcursionListViewModel::class.java)
-        binding.rangeSeekBar.max = 15000
-        binding.rangeSeekBar.minRange = 0
+        binding.rangeSeekBar.max = 10000
+        binding.rangeSeekBar.minRange = 100
 
         binding.cardView.setOnClickListener {
             filter.startDate = binding.dateFromEdt.text.toString()
@@ -151,6 +151,7 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
             findNavController().previousBackStackEntry?.savedStateHandle?.set("filter",mutableFilter.value)
             findNavController().navigateUp()
         }
+
         binding.rangeSeekBar.seekBarChangeListener =
             object : RangeSeekBar.SeekBarChangeListener {
                 override fun onStartedSeeking() {

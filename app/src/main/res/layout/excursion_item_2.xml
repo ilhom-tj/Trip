@@ -61,14 +61,15 @@
         android:id="@+id/excurse_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
         android:maxLines="2"
         android:text="34 098 Р"
         android:textColor="@color/black"
+        android:textFontWeight="800"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:textFontWeight="800"
-        app:layout_constraintBottom_toBottomOf="@+id/excursion_title"
-        app:layout_constraintEnd_toEndOf="@+id/imageSlider" />
+        app:layout_constraintEnd_toEndOf="@+id/imageSlider"
+        app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -99,19 +100,19 @@
         android:id="@+id/guide_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="3,5 часа"
         android:textColor="#737373"
-        app:layout_constraintBottom_toBottomOf="@+id/review_qty"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/review_qty" />
+        app:layout_constraintTop_toBottomOf="@+id/excurse_price" />
 
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:text="Lorem msdimiamsi mai msai nsi nasun iau aisub as bsaiu basiu bias bsau iasbu basiu bia bisa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        app:layout_constraintTop_toBottomOf="@+id/guide_duration" />
 </androidx.constraintlayout.widget.ConstraintLayout>
