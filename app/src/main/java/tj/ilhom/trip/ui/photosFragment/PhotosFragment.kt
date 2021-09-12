@@ -63,6 +63,9 @@ class PhotosFragment : Fragment(), StoriesProgressView.StoriesListener {
         binding.skip.setOnClickListener {
             binding.stories.skip()
         }
+        binding.close.setOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.skip.setOnTouchListener(onTouchListener)
     }
 

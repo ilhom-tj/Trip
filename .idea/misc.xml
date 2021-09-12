@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/photo_gradient_background.xml" value="0.30092592592592593" />
         <entry key="app/src/main/res/drawable/review_corner_small.xml" value="0.337037037037037" />
         <entry key="app/src/main/res/drawable/search_view_border.xml" value="0.2824074074074074" />
+        <entry key="app/src/main/res/drawable/vector_119close.xml" value="0.30092592592592593" />
         <entry key="app/src/main/res/font-v26/sf_ui.xml" value="0.337037037037037" />
         <entry key="app/src/main/res/font/sf_ui.xml" value="0.337037037037037" />
         <entry key="app/src/main/res/layout/cities_fragment.xml" value="0.29129464285714285" />
@@ -18,6 +19,7 @@
         <entry key="app/src/main/res/layout/excursion_list_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/image_slider.xml" value="0.2962962962962963" />
         <entry key="app/src/main/res/layout/image_slider_solid.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/photos_fragment.xml" value="0.3734375" />
         <entry key="app/src/main/res/layout/review_fragment.xml" value="0.3734375" />
       </map>
     </option>
