@@ -16,7 +16,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,8 +60,11 @@ class CitiesFragment : Fragment(), CityEvents {
             viewModel.foundCities.collect(cityListAdapter::submitData)
         }
 
-        binding?.editSearchCity?.doOnTextChanged { s, _, _, _ ->
-            searchQuery.value = s.toString()
+        binding?.editSearchCity?.doOnTextChanged { s, _, _, c ->
+            if (c > 1) searchQuery.value = s.toString()
+            else lifecycleScope.launch {
+                viewModel.getCities()
+            }
         }
 
         binding?.editSearchCity?.onSearch {

@@ -34,7 +34,7 @@ class CitiesViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getCities() {
+    suspend fun getCities() {
         Pager(
             config = PagingConfig(
                 pageSize = 20,
