@@ -97,7 +97,7 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
 
     override fun excursionClick(excurse: Excurse) {
         val action = ExcursionListFragmentDirections
-            .actionExcurseFragmentToExcursionFragment(excurse)
+            .actionExcurseFragmentToExcursionFragment(excurse.id)
         findNavController().navigate(action)
     }
 

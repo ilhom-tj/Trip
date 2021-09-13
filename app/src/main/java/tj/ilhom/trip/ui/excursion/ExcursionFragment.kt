@@ -48,8 +48,7 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         imageSliderAdapter = ImageSliderAdapter(R.layout.image_slider_solid)
-
-        viewModel.getExcursion(args.excurse.id).observe(viewLifecycleOwner) { excursion ->
+        viewModel.getExcursion(args.id).observe(viewLifecycleOwner) { excursion ->
             excursion.let { excurse ->
                 allPhotos.addAll(excurse.photos)
 
@@ -123,7 +122,7 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                     perPersonAdapter.setData(listOf(price!!))
                 } else {
                     val price =
-                        PerPerson(0.0, excursion.price.unit_string, false, args.excurse.price.value)
+                        PerPerson(0.0, excursion.price.unit_string, false, excurse.price.value)
                     perPersonAdapter.setData(listOf(price))
                 }
                 binding.back.setOnClickListener {
@@ -147,9 +146,13 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                     arrayOfPhoto.addAll(excursion.photos)
                 }
 
+                binding.share.setOnClickListener {
+                    val action = ExcursionFragmentDirections.actionExcursionFragmentToShareFragment(excurse)
+                    findNavController().navigate(action)
+                }
                 binding.reviewQty.setOnClickListener {
                     val action =
-                        ExcursionFragmentDirections.actionExcursionFragmentToReviewFragment(args.excurse.id)
+                        ExcursionFragmentDirections.actionExcursionFragmentToReviewFragment(excurse.id)
                     findNavController().navigate(action)
                 }
                 pictureAdapter.setData(arrayOfPhoto)

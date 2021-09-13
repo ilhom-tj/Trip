@@ -26,11 +26,14 @@
     </dialog>
     <fragment android:id="@+id/excursionFragment" android:name="tj.ilhom.trip.ui.excursion.ExcursionFragment"
               android:label="excursion_fragment" tools:layout="@layout/excursion_fragment">
-        <argument android:name="excurse" app:argType="tj.ilhom.trip.models.excurse.Excurse"/>
         <action android:id="@+id/action_excursionFragment_to_descriptionFragment"
                 app:destination="@id/descriptionFragment"/>
         <action android:id="@+id/action_excursionFragment_to_reviewFragment" app:destination="@id/reviewFragment"/>
         <action android:id="@+id/action_excursionFragment_to_photosFragment" app:destination="@id/photosFragment"/>
+        <deepLink android:id="@+id/deepLink" app:uri="experience.tripster.ru/experience/{id}"
+                  android:autoVerify="true"/>
+        <argument android:name="id" app:argType="integer"/>
+        <action android:id="@+id/action_excursionFragment_to_shareFragment" app:destination="@id/shareFragment"/>
     </fragment>
     <dialog android:id="@+id/descriptionFragment"
               android:name="tj.ilhom.trip.ui.excursion.descriptionModal.DescriptionFragment"
@@ -45,4 +48,8 @@
               android:label="photos_fragment" tools:layout="@layout/photos_fragment">
         <argument android:name="photos" app:argType="tj.ilhom.trip.models.excurse.Photo[]"/>
     </fragment>
+    <dialog android:id="@+id/shareFragment" android:name="tj.ilhom.trip.ui.excursion.share.ShareFragment"
+              android:label="fragment_share" tools:layout="@layout/fragment_share">
+        <argument android:name="excursion" app:argType="tj.ilhom.trip.models.excurse.Excurse"/>
+    </dialog>
 </navigation>
