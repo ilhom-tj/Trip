@@ -15,7 +15,7 @@
         </item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
-        <item name="android:fontFamily">@font/sf_ui_text</item>
+        <item name="android:fontFamily">@font/sf_ui</item>
         <item name="fontFamily">@font/sf_ui</item>
     </style>
     <style name="BottomRoundSheet" parent="Widget.Design.BottomSheet.Modal">

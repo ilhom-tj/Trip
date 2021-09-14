@@ -1,5 +1,6 @@
 package tj.ilhom.trip.ui.excursion
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,6 +25,8 @@ import tj.ilhom.trip.ui.excurseList.adapter.ImageSliderAdapter
 import tj.ilhom.trip.ui.excursion.adapter.PerPersonAdapter
 import tj.ilhom.trip.ui.excursion.adapter.PicturesAdapter
 import tj.ilhom.trip.ui.noInternetSnackBar
+import java.math.MathContext
+import java.math.RoundingMode
 import javax.inject.Inject
 
 
@@ -58,6 +61,7 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
 
     val arrayOfPhoto = arrayListOf<Photo>()
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -184,7 +188,11 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
 //
 //                    pictures.adapter = pictureAdapter
                     excursionTitle.text = excursion.title
-                    reviewRating.text = excursion.rating.toString()
+                    reviewRating.text = excursion.rating
+                        .toBigDecimal()
+                        .round(MathContext(2, RoundingMode.HALF_EVEN))
+                        .toString()
+
                     ratingBar.rating = excursion.rating.toFloat()
                     reviewQty.text = excursion.review_count.toString() + " отзывов"
 
