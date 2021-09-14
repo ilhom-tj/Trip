@@ -1,13 +1,11 @@
 package tj.ilhom.trip.ui.excurseList.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -16,13 +14,9 @@ import me.relex.circleindicator.CircleIndicator2
 import tj.ilhom.trip.R
 import tj.ilhom.trip.Utils.CurrencyConverter
 import tj.ilhom.trip.models.excurse.Excurse
-import tj.ilhom.trip.models.excurse.Photo
 
 
-class ExcurseAdapter(
-    fragment: Fragment,
-    private val excursionEvent: ExcursionEvent
-) :
+class ExcurseAdapter(private val excursionEvent: ExcursionEvent) :
     PagingDataAdapter<Excurse, ExcurseAdapter.ExcurseViewHolder>(diffUtil) {
 
     var attached: Boolean = false
@@ -80,12 +74,12 @@ class ExcurseAdapter(
         val imageAdapter = ImageSliderAdapter(R.layout.image_slider)
         holder.backgroundImage.adapter = imageAdapter
         if (excurse?.photos?.isNotEmpty() == true) {
-            if (excurse.photos.size >4){
+            if (excurse.photos.size > 4) {
                 val images = (0 until 4).map {
                     excurse.photos[it]
                 }
                 imageAdapter.submitList(images)
-            }else{
+            } else {
                 imageAdapter.submitList(excurse.photos)
             }
         }

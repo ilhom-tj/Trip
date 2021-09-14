@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import tj.ilhom.trip.R
 import tj.ilhom.trip.databinding.ExcursionFragmentBinding
@@ -21,18 +23,29 @@ import tj.ilhom.trip.models.excurse.Photo
 import tj.ilhom.trip.ui.excurseList.adapter.ImageSliderAdapter
 import tj.ilhom.trip.ui.excursion.adapter.PerPersonAdapter
 import tj.ilhom.trip.ui.excursion.adapter.PicturesAdapter
+import tj.ilhom.trip.ui.noInternetSnackBar
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
 
 
-    private val viewModel: ExcursionViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ExcursionViewModel.ExcursionViewModelFactory
+
+    private val viewModel: ExcursionViewModel by viewModels {
+        ExcursionViewModel.provideFactory(viewModelFactory, args.id)
+    }
+
     private lateinit var binding: ExcursionFragmentBinding
+    private var snackbar: Snackbar? = null
     private val args: ExcursionFragmentArgs by navArgs()
     private lateinit var pictureAdapter: PicturesAdapter
     private lateinit var perPersonAdapter: PerPersonAdapter
-    private lateinit var imageSliderAdapter: ImageSliderAdapter
+    private val imageSliderAdapter by lazy {
+        ImageSliderAdapter(R.layout.image_slider_solid)
+    }
 
     val allPhotos = mutableListOf<Photo>()
     override fun onCreateView(
@@ -45,10 +58,17 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
 
     val arrayOfPhoto = arrayListOf<Photo>()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        imageSliderAdapter = ImageSliderAdapter(R.layout.image_slider_solid)
-        viewModel.getExcursion(args.id).observe(viewLifecycleOwner) { excursion ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.error.observe(viewLifecycleOwner){
+            snackbar = noInternetSnackBar(binding.progress){
+                viewModel.getExcursion(args.id)
+                binding.progress.isVisible = false
+            }
+        }
+
+        viewModel.excursion.observe(viewLifecycleOwner) { excursion ->
             excursion.let { excurse ->
                 allPhotos.addAll(excurse.photos)
 
@@ -85,13 +105,10 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                     orientation = LinearLayoutManager.HORIZONTAL
                 }
 
-
-
                 binding.photoSlider.adapter = imageSliderAdapter
                 val pagerSnapHelper = PagerSnapHelper()
                 pagerSnapHelper.attachToRecyclerView(binding.photoSlider)
                 binding.indicator.attachToRecyclerView(binding.photoSlider, pagerSnapHelper)
-
 
                 binding.allView.isVisible = true
                 binding.progress.isVisible = false
@@ -147,7 +164,8 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                 }
 
                 binding.share.setOnClickListener {
-                    val action = ExcursionFragmentDirections.actionExcursionFragmentToShareFragment(excurse)
+                    val action =
+                        ExcursionFragmentDirections.actionExcursionFragmentToShareFragment(excurse)
                     findNavController().navigate(action)
                 }
                 binding.reviewQty.setOnClickListener {

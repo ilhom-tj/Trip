@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -48,4 +49,13 @@ fun noInternetSnackBar(view: View?, action: (View) -> Unit): Snackbar? {
             .setAction("Повторить", action)
             .also { it.show() }
     }
+}
+
+fun <T : Any> List<T>.toPagingData(): PagingData<T> {
+    return PagingData.from(this)
+}
+
+sealed class PagingDataViewState<out T : Any> {
+    data class Data<T : Any>(val data: PagingData<T>) : PagingDataViewState<T>()
+    data class Error(val message: String) : PagingDataViewState<Nothing>()
 }

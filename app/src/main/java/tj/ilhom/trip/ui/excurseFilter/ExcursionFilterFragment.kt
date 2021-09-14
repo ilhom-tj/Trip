@@ -38,39 +38,11 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
     private val priceTo = MutableLiveData<Int>()
 
     private lateinit var excursionTypeAdapter: FilterAdapter
-    private val excurseType = arrayListOf(
-        "Все",
-        "Индивидуальные",
-        "Групповые"
-    )
     private lateinit var excursionMoveAdapter: FilterAdapter
-    private val excurseMoveType = arrayListOf(
-        "Любой",
-        "На машине",
-        "Пешком",
-        "На автобусе",
-        "На кораблике",
-        "На велосипеде",
-        "В помещении"
-    )
     private lateinit var excursionTagTypeAdapter: FilterAdapter
-    private val excurseTagType = arrayListOf(
-        "Обзорные",
-        "Со скидкой",
-        "За городом",
-        "История и культура",
-        "Необычные маршруты",
-        "Речные прогулки",
-        "Форты",
-        "Фотоссесии",
-        "Гастрономические",
-        "Для детей",
-        "Музеи и искуство",
-        "Активный отдых"
-    )
-
 
     val filter = FilterModel()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,8 +53,8 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         excursionTypeAdapter = FilterAdapter(this, object : SwitcherOnclick {
             override fun toggle(filter: String, isChecked: Boolean) {
@@ -183,11 +155,8 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
                 filter.startPrice = price.toInt()
                 val currency = CurrencyConverter.getCurrencyEmblem(args.country.currency)
                 binding.priceToEdit.setText("$price $currency")
-
             }
         }
-
-
 
         binding.dateFromEdt.transformIntoDatePicker(requireContext(), "yyyy-MM-dd", Date())
 

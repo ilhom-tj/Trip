@@ -34,13 +34,12 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
     }
     private lateinit var binding: ExcursionListFragmentBinding
     private val args: ExcursionListFragmentArgs by navArgs()
-    private lateinit var excurseAdapter: ExcurseAdapter
+    private val excurseAdapter by lazy { ExcurseAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = ExcursionListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +49,6 @@ class ExcursionListFragment : Fragment(), ExcursionEvent {
 
         binding.excurseCity.text = args.city.name_ru
 
-        excurseAdapter = ExcurseAdapter(this, this)
         binding.excursionList.layoutManager = GridLayoutManager(requireContext(), 1)
         binding.excursionList.adapter = excurseAdapter
 

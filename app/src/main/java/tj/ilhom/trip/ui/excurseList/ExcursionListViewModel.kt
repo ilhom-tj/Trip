@@ -1,27 +1,24 @@
 package tj.ilhom.trip.ui.excurseList
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.models.excurse.Excurse
-import tj.ilhom.trip.models.excurse.ExcurseResponse
 import tj.ilhom.trip.models.excurse.Tag
 import tj.ilhom.trip.models.filter.FilterModel
-import tj.ilhom.trip.network.Repository
+import tj.ilhom.trip.network.Repo
 import tj.ilhom.trip.ui.excurseList.dataSources.ExcureFilterDataSource
 import tj.ilhom.trip.ui.excurseList.dataSources.ExcursionDataSource
 import javax.inject.Inject
 
 @HiltViewModel
 class ExcursionListViewModel @Inject constructor(
-    private val repository: Repository
+    private val repo: Repo
 ) : ViewModel() {
 
     val filter = MutableLiveData<FilterModel>()
@@ -37,7 +34,7 @@ class ExcursionListViewModel @Inject constructor(
             ),
             pagingSourceFactory = {
                 ExcureFilterDataSource(
-                    repo = repository,
+                    repo = repo,
                     cityId = city,
                     filterModel = filterModel
                 )
@@ -56,8 +53,6 @@ class ExcursionListViewModel @Inject constructor(
                     filterByTagType(item.tags, filterModel)
                 }
             }
-
-
     }
 
 
@@ -135,11 +130,12 @@ class ExcursionListViewModel @Inject constructor(
             ),
             pagingSourceFactory = {
                 ExcursionDataSource(
-                    repo = repository,
+                    repo = repo,
                     cityId = city.id
                 )
             },
         ).flow
+            .cachedIn(viewModelScope)
     }
 
     fun searchExcursion(city: City, query: String): Flow<PagingData<Excurse>> {
@@ -151,12 +147,13 @@ class ExcursionListViewModel @Inject constructor(
             ),
             pagingSourceFactory = {
                 ExcursionSearchDataSource(
-                    repo = repository,
+                    repo = repo,
                     cityId = city.id,
                     query = query
                 )
             },
-        ).flow.cachedIn(CoroutineScope(Dispatchers.IO))
+        ).flow
+            .cachedIn(viewModelScope)
     }
 
 

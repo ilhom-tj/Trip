@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import tj.ilhom.trip.R
 import tj.ilhom.trip.models.city.City
 
-class CityListAdapter(
-    fragment : Fragment,
-    private val cityEvents: CityEvents
-) :
+class CityListAdapter(private val cityEvents: CityEvents) :
     PagingDataAdapter<City, CityListAdapter.ProductsViewHolder>(diffUtil) {
 
     var builder: AlertDialog.Builder? = null

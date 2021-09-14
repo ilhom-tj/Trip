@@ -1,5 +1,6 @@
 package tj.ilhom.trip.network
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,9 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RetrofitInstance {
-    @Provides
-    fun providerBaseUrl() = "https://experience.tripster.ru"
+class NetworkModule {
 
     @Singleton
     @Provides
@@ -38,9 +37,14 @@ class RetrofitInstance {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit) = retrofit.create(API::class.java)
+    fun provideApiService(retrofit: Retrofit): API = retrofit.create(API::class.java)
 
-    @Provides
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+interface BindsModule{
+    @Binds
     @Singleton
-    fun provideHelper(apiHelper: APIHelperImpl): APIHelper = apiHelper
+    fun provideRepo(repoImpl: RepoImpl): Repo
 }
