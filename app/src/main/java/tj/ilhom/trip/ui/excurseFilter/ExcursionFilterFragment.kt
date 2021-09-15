@@ -1,5 +1,6 @@
 package tj.ilhom.trip.ui.excurseFilter
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -53,6 +53,7 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
+    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -99,8 +100,6 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
         })
         excursionTagTypeAdapter.setData(excurseTagType)
 
-
-
         binding.excursionTypeRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.excursionTypeRecycler.adapter = excursionTypeAdapter
 
@@ -111,16 +110,16 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
         binding.excursionTagTypeRecycler.adapter = excursionTagTypeAdapter
 
 
-        viewModel = ViewModelProvider(this).get(ExcursionListViewModel::class.java)
         binding.rangeSeekBar.max = 10000
         binding.rangeSeekBar.minRange = 100
 
         binding.cardView.setOnClickListener {
-            filter.startDate = binding.dateFromEdt.text.toString()
-            filter.endDate = binding.dateToEdt.text.toString()
             val mutableFilter = MutableLiveData<FilterModel>()
             mutableFilter.value = filter
-            findNavController().previousBackStackEntry?.savedStateHandle?.set("filter",mutableFilter.value)
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "filter",
+                mutableFilter.value
+            )
             findNavController().navigateUp()
         }
 
@@ -152,31 +151,41 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
 
         priceTo.observe(viewLifecycleOwner) {
             it.let { price ->
-                filter.startPrice = price.toInt()
+                filter.endPrice = price.toInt()
                 val currency = CurrencyConverter.getCurrencyEmblem(args.country.currency)
                 binding.priceToEdit.setText("$price $currency")
             }
         }
 
-        binding.dateFromEdt.transformIntoDatePicker(requireContext(), "yyyy-MM-dd", Date())
+        binding.dateFromEdt.transformIntoDatePicker(requireContext(), "dd.MM.yyyy", true, Date())
 
-        binding.dateToEdt.transformIntoDatePicker(requireContext(), "yyyy-MM-dd", Date())
+        binding.dateToEdt.transformIntoDatePicker(requireContext(), "dd.MM.YYYY", false, Date())
 
     }
 
-    fun EditText.transformIntoDatePicker(context: Context, format: String, maxDate: Date? = null) {
+    fun EditText.transformIntoDatePicker(
+        context: Context,
+        format: String,
+        isFromDate: Boolean,
+        min: Date
+    ) {
         isFocusableInTouchMode = false
         isClickable = true
         isFocusable = false
 
         val myCalendar = Calendar.getInstance()
         val datePickerOnDataSetListener =
-            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog.OnDateSetListener { d, year, monthOfYear, dayOfMonth ->
                 myCalendar.set(Calendar.YEAR, year)
                 myCalendar.set(Calendar.MONTH, monthOfYear)
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                d.minDate = min.time
                 val sdf = SimpleDateFormat(format, Locale.UK)
                 setText(sdf.format(myCalendar.time))
+                val apiFormat = SimpleDateFormat("yyyy-MM-dd", Locale.UK)
+                val apiDate = apiFormat.format(myCalendar.time)
+                if (isFromDate) filter.startDate = apiDate
+                else filter.endDate = apiDate
             }
 
         setOnClickListener {

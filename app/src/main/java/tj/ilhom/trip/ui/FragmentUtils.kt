@@ -1,6 +1,7 @@
 package tj.ilhom.trip.ui
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -45,17 +46,17 @@ fun EditText.onSearch(callback: () -> Context) {
 
 fun noInternetSnackBar(view: View?, action: (View) -> Unit): Snackbar? {
     return view?.let { v ->
-        Snackbar.make(v, "Нет подключения к интернету", Snackbar.LENGTH_INDEFINITE)
-            .setAction("Повторить", action)
-            .also { it.show() }
+        try {
+            Snackbar.make(v, "Произошла ошибка при загрузке данных", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Повторить", action)
+                .also { it.show() }
+        } catch (e: Exception) {
+            Log.e("ERROR_TRIP", e.message.toString())
+            null
+        }
     }
 }
 
 fun <T : Any> List<T>.toPagingData(): PagingData<T> {
     return PagingData.from(this)
-}
-
-sealed class PagingDataViewState<out T : Any> {
-    data class Data<T : Any>(val data: PagingData<T>) : PagingDataViewState<T>()
-    data class Error(val message: String) : PagingDataViewState<Nothing>()
 }

@@ -10,8 +10,8 @@ class BackendRepoImpl @Inject constructor(
 
     override suspend fun getAppCategory() = safeApiCall { serviceV2.getAppCategory() }
 
-    override suspend fun getReviews(userId: Int, excursionId: Int) = safeApiCall {
-        serviceV2.getReviews(userId, excursionId)
+    override suspend fun getReviews(excursionId: Int) = safeApiCall {
+        serviceV2.getReviews(excursionId)
     }
 
     override suspend fun postReview(

@@ -38,9 +38,19 @@ class ReviewFragment : BottomSheetDialogFragment() {
         viewModel = ViewModelProvider(requireActivity()).get(ReviewViewModel::class.java)
 
         adapter = ReviewAdapter(this)
+
         binding.reviews.layoutManager = LinearLayoutManager(requireContext()).apply {
             orientation = LinearLayoutManager.VERTICAL
         }
+
+        binding.send.setOnClickListener {
+
+        }
+
+        binding.close.setOnClickListener {
+            this.dismiss()
+        }
+
         binding.reviews.adapter = adapter
 
         lifecycleScope.launch {

@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
 import tj.ilhom.trip.databinding.CitiesFragmentBinding
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.network.Resource
-import tj.ilhom.trip.ui.PagingDataViewState
 import tj.ilhom.trip.ui.cities.adapter.CityEvents
 import tj.ilhom.trip.ui.cities.adapter.CityListAdapter
 import tj.ilhom.trip.ui.collectLoadStates

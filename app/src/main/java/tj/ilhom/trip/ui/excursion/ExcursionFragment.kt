@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -126,7 +125,7 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                     }
                     else -> "₽"
                 }
-                perPersonAdapter = PerPersonAdapter(this, curency)
+                perPersonAdapter = PerPersonAdapter(curency)
                 binding.perPersons.layoutManager = LinearLayoutManager(requireContext())
                 binding.perPersons.adapter = perPersonAdapter
                 if (!excursion.price.per_person.isNullOrEmpty()) {

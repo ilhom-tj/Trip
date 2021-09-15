@@ -9,9 +9,11 @@ import tj.ilhom.trip.Utils.toLoadResult
 import tj.ilhom.trip.models.review.Review
 import tj.ilhom.trip.network.repo.Repo
 import tj.ilhom.trip.network.Resource
+import tj.ilhom.trip.network.repo.BackendRepo
 
 class ReviewDataSource(
     private val repo: Repo,
+    private val backendRepo: BackendRepo,
     private val id: Int
 ) : PagingSource<Int, Review>() {
 

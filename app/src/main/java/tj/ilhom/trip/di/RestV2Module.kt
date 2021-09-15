@@ -33,7 +33,7 @@ class NetworkModuleV2 {
     @RetrofitV2
     fun provideRetrofit(@RestClientV2 okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("https://backendapi.site/api")
+        .baseUrl("https://backendapi.site/api/")
         .client(okHttpClient)
         .build()
 
