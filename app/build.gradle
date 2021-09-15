@@ -82,4 +82,7 @@ dependencies {
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
 
+    //Parsing
+    implementation 'org.jsoup:jsoup:1.14.2'
+
 }

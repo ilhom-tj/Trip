@@ -52,11 +52,11 @@ class ExcurseAdapter(private val excursionEvent: ExcursionEvent) :
         val curency = CurrencyConverter.getCurrencyEmblem(excurse?.price?.currency.toString())
 
         if (excurse?.price?.per_person?.isNotEmpty() == true) {
-            holder.excursePrice.text = "${excurse.price.per_person[0].value} $curency"
+            holder.excursePrice.text = "${excurse.price.per_person[0].value.toInt()} $curency"
         } else if (excurse?.price?.per_group != null) {
-            holder.excursePrice.text = "${excurse.price.per_group.value} $curency"
+            holder.excursePrice.text = "${excurse.price.per_group.value?.toInt()} $curency"
         } else {
-            holder.excursePrice.text = "${excurse?.price?.value} $curency"
+            holder.excursePrice.text = "${excurse?.price?.value?.toInt()} $curency"
         }
         holder.excurseDuration.text = "${excurse?.duration} часа"
         holder.rating.rating = excurse?.rating?.toFloat() ?: 0f

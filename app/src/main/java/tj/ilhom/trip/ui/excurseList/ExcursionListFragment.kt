@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.R
+import tj.ilhom.trip.databinding.ExcursionFragmentBinding
 import tj.ilhom.trip.databinding.ExcursionListFragmentBinding
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.filter.FilterModel

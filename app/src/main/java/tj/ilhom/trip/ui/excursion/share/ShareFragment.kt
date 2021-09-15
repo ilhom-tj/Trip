@@ -8,14 +8,19 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tj.ilhom.trip.R
+import tj.ilhom.trip.Utils.CBottomSheetDialogFragment
 import tj.ilhom.trip.databinding.FragmentShareBinding
 
 
-class ShareFragment : BottomSheetDialogFragment() {
+class ShareFragment : CBottomSheetDialogFragment() {
 
     private val args: ShareFragmentArgs by navArgs()
     private lateinit var binding: FragmentShareBinding
 
+    override fun onStart() {
+        super.onStart()
+        setFullScreen()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

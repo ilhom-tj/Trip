@@ -13,17 +13,23 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.R
+import tj.ilhom.trip.Utils.CBottomSheetDialogFragment
 import tj.ilhom.trip.databinding.ReviewFragmentBinding
 import tj.ilhom.trip.ui.collectLoadStates
 import tj.ilhom.trip.ui.reviewBottomSheet.adapter.ReviewAdapter
 
-class ReviewFragment : BottomSheetDialogFragment() {
+class ReviewFragment : CBottomSheetDialogFragment() {
 
     private lateinit var binding: ReviewFragmentBinding
     private lateinit var viewModel: ReviewViewModel
     private lateinit var adapter: ReviewAdapter
     private val args: ReviewFragmentArgs by navArgs()
     private var snackbar: Snackbar? = null
+
+    override fun onStart() {
+        super.onStart()
+        setFullScreen()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

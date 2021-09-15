@@ -125,7 +125,7 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                     }
                     else -> "₽"
                 }
-                perPersonAdapter = PerPersonAdapter(curency)
+                perPersonAdapter = PerPersonAdapter(this,curency)
                 binding.perPersons.layoutManager = LinearLayoutManager(requireContext())
                 binding.perPersons.adapter = perPersonAdapter
                 if (!excursion.price.per_person.isNullOrEmpty()) {

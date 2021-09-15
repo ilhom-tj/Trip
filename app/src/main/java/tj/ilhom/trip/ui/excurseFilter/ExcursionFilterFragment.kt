@@ -17,6 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.innovattic.rangeseekbar.RangeSeekBar
 import dagger.hilt.android.AndroidEntryPoint
 import tj.ilhom.trip.R
+import tj.ilhom.trip.Utils.CBottomSheetDialogFragment
 import tj.ilhom.trip.Utils.CurrencyConverter
 import tj.ilhom.trip.databinding.ExcursionFilterFragmentBinding
 import tj.ilhom.trip.models.filter.FilterModel
@@ -27,7 +28,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class ExcursionFilterFragment : BottomSheetDialogFragment() {
+class ExcursionFilterFragment : CBottomSheetDialogFragment() {
 
     private lateinit var viewModel: ExcursionListViewModel
     private lateinit var binding: ExcursionFilterFragmentBinding
@@ -42,6 +43,11 @@ class ExcursionFilterFragment : BottomSheetDialogFragment() {
     private lateinit var excursionTagTypeAdapter: FilterAdapter
 
     val filter = FilterModel()
+
+    override fun onStart() {
+        super.onStart()
+        setFullScreen()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
