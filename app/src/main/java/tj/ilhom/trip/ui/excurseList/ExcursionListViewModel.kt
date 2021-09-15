@@ -57,6 +57,7 @@ class ExcursionListViewModel @Inject constructor(
 
 
     private fun filterByTagType(tags: List<Tag>, filterModel: FilterModel): Boolean {
+        if (tags.isEmpty()) return true
         tags.forEach {
             if (checkTag(it.name, filterModel)) {
                 return true
@@ -66,6 +67,7 @@ class ExcursionListViewModel @Inject constructor(
     }
 
     fun checkTag(tag: String, filterModel: FilterModel): Boolean {
+        if (filterModel.tripTagType.isEmpty()) return true
         filterModel.tripTagType.forEach {
             if (tag == it) {
                 return true
@@ -80,6 +82,7 @@ class ExcursionListViewModel @Inject constructor(
             "group" -> "Групповые"
             else -> "Все"
         }
+        if (filterModel.tripType.isEmpty()) return true
         filterModel.tripType.forEach {
             if (it == "Все") {
                 return true
@@ -113,6 +116,7 @@ class ExcursionListViewModel @Inject constructor(
             else -> "Другое"
         }
 
+        if (filterModel.tripMoveType.isEmpty()) return true
         filterModel.tripMoveType.forEach {
             if (it == "Любой") {
                 return true
