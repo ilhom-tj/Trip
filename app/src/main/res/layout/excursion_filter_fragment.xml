@@ -1,343 +1,364 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.excurseFilter.ExcursionFilterFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
-        tools:context=".ui.excurseFilter.ExcursionFilterFragment">
-    <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="87dp"
 
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="87dp"
-            android:id="@+id/scrollView2"
-            app:layout_constraintBottom_toTopOf="@+id/cardView">
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0">
+
         <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
-                    android:layout_margin="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/filters"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="30sp"
-            />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/filters"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
             <androidx.cardview.widget.CardView
-                    android:background="#fff"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="1dp"
-                    android:translationZ="2dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#fff"
+                android:elevation="1dp"
+                android:translationZ="2dp"
+                app:cardCornerRadius="10dp">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                        android:padding="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Цена за экскурсию"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            android:id="@+id/textView"
-                    />
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Цена за экскурсию"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
                     <com.innovattic.rangeseekbar.RangeSeekBar
-                            android:id="@+id/rangeSeekBar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            app:rsb_trackSelectedColor="#D1D1D1"
-                            app:rsb_trackColor="#D0E6E6E6"
-                            app:rsb_minThumbDrawable="@drawable/seekbar_thumb"
-                            app:rsb_maxThumbDrawable="@drawable/seekbar_thumb"
-                            app:layout_constraintTop_toBottomOf="@+id/textView"
-                            app:layout_constraintStart_toStartOf="@+id/textView"
-                            app:layout_constraintEnd_toEndOf="@+id/textView"/>
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="до"
-                            android:alpha="0.6"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="10dp"
-                            android:id="@+id/price_from_label"
-                            app:layout_constraintEnd_toStartOf="@+id/price_to_edit"
-                            app:layout_constraintTop_toTopOf="@+id/price_from_edt"
-                            app:layout_constraintBottom_toBottomOf="@+id/price_from_edt"
-                            app:layout_constraintStart_toEndOf="@+id/price_from_edt"
-                            app:layout_constraintHorizontal_bias="0.5"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="от"
-                            android:alpha="0.6"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="4dp"
-                            android:textSize="18sp"
-                            android:layout_marginEnd="10dp"
-                            android:id="@+id/price_to_label"
-                            app:layout_constraintTop_toBottomOf="@+id/rangeSeekBar"
-                            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintEnd_toStartOf="@+id/price_from_edt"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-                    <EditText
-                            android:textSize="18sp"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="50dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:background="@drawable/price_view_border"
-                            app:layout_constraintStart_toEndOf="@+id/price_to_label"
-                            app:layout_constraintTop_toTopOf="@+id/price_to_label"
-                            app:layout_constraintBottom_toBottomOf="@+id/price_to_label"
-                            android:id="@+id/price_from_edt"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintEnd_toStartOf="@+id/price_from_label"
-                            app:layout_constraintVertical_bias="0.4"/>
-                    <EditText
-                            android:textSize="18sp"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="50dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:background="@drawable/price_view_border"
-                            app:layout_constraintTop_toTopOf="@+id/price_from_label"
-                            app:layout_constraintBottom_toBottomOf="@+id/price_from_label"
-                            app:layout_constraintEnd_toEndOf="@+id/rangeSeekBar"
-                            android:id="@+id/price_to_edit"
-                            app:layout_constraintStart_toEndOf="@+id/price_from_label"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintVertical_bias="0.4"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                    android:background="#fff"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="1dp"
-                    android:translationZ="2dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-            >
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:padding="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" app:layout_constraintTop_toTopOf="@+id/date_from_edt"
-                        app:layout_constraintBottom_toTopOf="@+id/date_from_edt">
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Даты экскурсий"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            android:id="@+id/textView2"
-                    />
-                    <TextView
-                            android:layout_marginTop="16dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="c"
-                            android:alpha="0.6"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:id="@+id/date_from"
-
-                            app:layout_constraintTop_toBottomOf="@+id/textView2"
-                            app:layout_constraintStart_toStartOf="@+id/textView2"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintEnd_toStartOf="@+id/date_from_edt"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-                    <EditText
-                            android:textSize="16sp"
-                            android:layout_width="0dp"
-                            android:text=""
-                            android:layout_height="wrap_content"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="35dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:editable="false"
-                            android:layout_marginStart="16dp"
-                            android:background="@drawable/price_view_border"
-                            app:layout_constraintStart_toEndOf="@+id/date_from"
-                            app:layout_constraintTop_toTopOf="@+id/date_from"
-                            app:layout_constraintEnd_toStartOf="@id/date_to"
-                            app:layout_constraintBottom_toBottomOf="@+id/date_from"
-                            android:id="@+id/date_from_edt"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="по"
-                            android:alpha="0.6"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:id="@+id/date_to"
-                            app:layout_constraintEnd_toStartOf="@+id/date_to_edt"
-                            app:layout_constraintTop_toTopOf="@+id/date_from"
-                            app:layout_constraintBottom_toBottomOf="@+id/date_from"
-                            app:layout_constraintStart_toEndOf="@+id/date_from_edt"
-                            app:layout_constraintHorizontal_bias="0.5"/>
-
-                    <EditText
-
-                            android:textSize="16sp"
-                            android:layout_width="0dp"
-                            android:text=""
-                            android:layout_height="wrap_content"
-                            android:paddingStart="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:editable="false"
-                            android:background="@drawable/price_view_border"
-                            app:layout_constraintTop_toTopOf="@+id/date_from_edt"
-                            app:layout_constraintBottom_toBottomOf="@+id/date_to"
-                            app:layout_constraintEnd_toEndOf="@+id/textView2"
-                            android:id="@+id/date_to_edt"
-                            app:layout_constraintStart_toEndOf="@+id/date_to"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintVertical_bias="0.4"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                    android:background="#fff"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="1dp"
-                    android:translationZ="2dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-            >
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:padding="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" app:layout_constraintTop_toTopOf="@+id/date_from_edt"
-                        app:layout_constraintBottom_toTopOf="@+id/date_from_edt">
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Тип экскурсий"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/textView5"/>
-                    <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/excursion_type_recycler"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-
-                            android:nestedScrollingEnabled="false"
-                            tools:listitem="@layout/filter_item"
-                            app:layout_constraintTop_toBottomOf="@+id/textView5"
-                            tools:layout_editor_absoluteX="16dp"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                    android:background="#fff"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="1dp"
-                    android:translationZ="2dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-            >
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:padding="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" app:layout_constraintTop_toTopOf="@+id/date_from_edt"
-                        app:layout_constraintBottom_toTopOf="@+id/date_from_edt">
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Способ передвижения"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:id="@+id/textView6"/>
-                    <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/excursion_movement_recycler"
-                            android:layout_marginTop="10dp"
-                            android:layout_width="match_parent"
-                            android:nestedScrollingEnabled="false"
-                            android:layout_height="wrap_content"
-                            tools:listitem="@layout/filter_item"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6"
-                            tools:layout_editor_absoluteX="16dp"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                    android:background="#fff"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="1dp"
-                    android:translationZ="2dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-            >
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:padding="16dp"
+                        android:id="@+id/rangeSeekBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="@+id/date_from_edt"
-                        app:layout_constraintBottom_toTopOf="@+id/date_from_edt">
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintEnd_toEndOf="@+id/textView"
+                        app:layout_constraintStart_toStartOf="@+id/textView"
+                        app:layout_constraintTop_toBottomOf="@+id/textView"
+                        app:rsb_maxThumbDrawable="@drawable/seekbar_thumb"
+                        app:rsb_minThumbDrawable="@drawable/seekbar_thumb"
+                        app:rsb_trackColor="#D0E6E6E6"
+                        app:rsb_trackSelectedColor="#D1D1D1" />
+
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Вид экскурсии"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:id="@+id/textView7"/>
+                        android:id="@+id/price_from_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:alpha="0.6"
+                        android:text="до"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/price_from_edt"
+                        app:layout_constraintEnd_toStartOf="@+id/price_to_edit"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/price_from_edt"
+                        app:layout_constraintTop_toTopOf="@+id/price_from_edt" />
+
+                    <TextView
+                        android:id="@+id/price_to_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="10dp"
+                        android:alpha="0.6"
+                        android:text="от"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/price_from_edt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rangeSeekBar" />
+
+                    <EditText
+                        android:id="@+id/price_from_edt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/price_view_border"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="50dp"
+                        android:paddingBottom="5dp"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/price_to_label"
+                        app:layout_constraintEnd_toStartOf="@+id/price_from_label"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/price_to_label"
+                        app:layout_constraintTop_toTopOf="@+id/price_to_label"
+                        app:layout_constraintVertical_bias="0.4" />
+
+                    <EditText
+                        android:id="@+id/price_to_edit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/price_view_border"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="50dp"
+                        android:paddingBottom="5dp"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/price_from_label"
+                        app:layout_constraintEnd_toEndOf="@+id/rangeSeekBar"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/price_from_label"
+                        app:layout_constraintTop_toTopOf="@+id/price_from_label"
+                        app:layout_constraintVertical_bias="0.4" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#fff"
+                android:elevation="1dp"
+                android:translationZ="2dp"
+                app:cardCornerRadius="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/date_from_edt"
+                    app:layout_constraintTop_toTopOf="@+id/date_from_edt">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Даты экскурсий"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/date_from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:alpha="0.6"
+                        android:text="c"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/date_from_edt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/textView2"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                    <EditText
+                        android:id="@+id/date_from_edt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/price_view_border"
+                        android:inputType="none"
+                        android:textSize="14sp"
+                        android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="35dp"
+                        android:paddingBottom="5dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/date_from"
+                        app:layout_constraintEnd_toStartOf="@id/date_to"
+                        app:layout_constraintStart_toEndOf="@+id/date_from"
+                        app:layout_constraintTop_toTopOf="@+id/date_from" />
+
+                    <TextView
+                        android:id="@+id/date_to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:alpha="0.6"
+                        android:text="по"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/date_from"
+                        app:layout_constraintEnd_toStartOf="@+id/date_to_edt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/date_from_edt"
+                        app:layout_constraintTop_toTopOf="@+id/date_from" />
+
+                    <EditText
+
+                        android:id="@+id/date_to_edt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/price_view_border"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:textSize="14sp"
+                        android:paddingBottom="5dp"
+                        android:inputType="none"
+                        app:layout_constraintBottom_toBottomOf="@+id/date_to"
+                        app:layout_constraintEnd_toEndOf="@+id/textView2"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/date_to"
+                        app:layout_constraintTop_toTopOf="@+id/date_from_edt"
+                        app:layout_constraintVertical_bias="0.4" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#fff"
+                android:elevation="1dp"
+                android:translationZ="2dp"
+                app:cardCornerRadius="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/date_from_edt"
+                    app:layout_constraintTop_toTopOf="@+id/date_from_edt">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Тип экскурсий"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/excursion_tag_type_recycler"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:nestedScrollingEnabled="false"
-                            tools:listitem="@layout/filter_item"
-                            android:layout_marginTop="10dp"
-                            app:layout_constraintTop_toBottomOf="@+id/textView7"
-                    />
+                        android:id="@+id/excursion_type_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:listitem="@layout/filter_item" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#fff"
+                android:elevation="1dp"
+                android:translationZ="2dp"
+                app:cardCornerRadius="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/date_from_edt"
+                    app:layout_constraintTop_toTopOf="@+id/date_from_edt">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Способ передвижения"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/excursion_movement_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintTop_toBottomOf="@+id/textView6"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:listitem="@layout/filter_item" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="#fff"
+                android:elevation="1dp"
+                android:translationZ="2dp"
+                app:cardCornerRadius="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/date_from_edt"
+                    app:layout_constraintTop_toTopOf="@+id/date_from_edt">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Вид экскурсии"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/excursion_tag_type_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintTop_toBottomOf="@+id/textView7"
+                        tools:listitem="@layout/filter_item" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -345,24 +366,25 @@
     </androidx.core.widget.NestedScrollView>
 
     <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#212121"
-            app:cardCornerRadius="16dp"
-            android:layout_margin="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/cardView">
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#212121"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
         <TextView
-                android:text="Готово"
-                android:padding="16dp"
-                android:textAlignment="center"
-                android:textColor="#fff"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:text="Готово"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
 
