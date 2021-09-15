@@ -1,10 +1,12 @@
-package tj.ilhom.trip.network
+package tj.ilhom.trip.network.repo
 
 import tj.ilhom.trip.models.filter.FilterModel
+import tj.ilhom.trip.network.BaseRepository
+import tj.ilhom.trip.network.rest.RestService
 import javax.inject.Inject
 
 class RepoImpl @Inject constructor(
-    private val service: API
+    private val service: RestService
 ) : BaseRepository(), Repo {
 
     override suspend fun getCities(page: Int) = safeApiCall { service.getCities(page) }

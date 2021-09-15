@@ -1,4 +1,4 @@
-package tj.ilhom.trip.ui.excursion.commentDialog.adapter
+package tj.ilhom.trip.ui.reviewBottomSheet.adapter
 
 import android.annotation.SuppressLint
 import android.util.Log

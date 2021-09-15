@@ -74,8 +74,8 @@ class ExcurseAdapter(private val excursionEvent: ExcursionEvent) :
         val imageAdapter = ImageSliderAdapter(R.layout.image_slider)
         holder.backgroundImage.adapter = imageAdapter
         if (excurse?.photos?.isNotEmpty() == true) {
-            if (excurse.photos.size > 4) {
-                val images = (0 until 4).map {
+            if (excurse.photos.size > 5) {
+                val images = (0 until 5).map {
                     excurse.photos[it]
                 }
                 imageAdapter.submitList(images)

@@ -36,11 +36,11 @@
         <action android:id="@+id/action_excursionFragment_to_shareFragment" app:destination="@id/shareFragment"/>
     </fragment>
     <dialog android:id="@+id/descriptionFragment"
-              android:name="tj.ilhom.trip.ui.excursion.descriptionModal.DescriptionFragment"
+              android:name="tj.ilhom.trip.ui.descriptionModal.DescriptionFragment"
               android:label="description_fragment" tools:layout="@layout/description_fragment">
         <argument android:name="excursion" app:argType="tj.ilhom.trip.models.excurse.Excurse"/>
     </dialog>
-    <dialog android:id="@+id/reviewFragment" android:name="tj.ilhom.trip.ui.excursion.commentDialog.ReviewFragment"
+    <dialog android:id="@+id/reviewFragment" android:name="tj.ilhom.trip.ui.reviewBottomSheet.ReviewFragment"
               android:label="review_fragment" tools:layout="@layout/review_fragment">
         <argument android:name="excurseId" app:argType="integer"/>
     </dialog>

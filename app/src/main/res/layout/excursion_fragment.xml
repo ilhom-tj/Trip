@@ -112,7 +112,7 @@
                 android:paddingBottom="3dp"
                 android:text="Калининград на одном дыхании"
                 android:textColor="@color/black"
-                android:textFontWeight="900"
+                android:textFontWeight="800"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

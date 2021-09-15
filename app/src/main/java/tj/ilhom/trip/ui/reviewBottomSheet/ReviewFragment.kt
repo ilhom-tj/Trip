@@ -1,4 +1,4 @@
-package tj.ilhom.trip.ui.excursion.commentDialog
+package tj.ilhom.trip.ui.reviewBottomSheet
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.SnapHelper
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.R
 import tj.ilhom.trip.databinding.ReviewFragmentBinding
 import tj.ilhom.trip.ui.collectLoadStates
-import tj.ilhom.trip.ui.excursion.commentDialog.adapter.ReviewAdapter
+import tj.ilhom.trip.ui.reviewBottomSheet.adapter.ReviewAdapter
 
 class ReviewFragment : BottomSheetDialogFragment() {
 

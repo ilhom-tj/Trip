@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.models.city.City
-import tj.ilhom.trip.network.Repo
+import tj.ilhom.trip.network.repo.Repo
 import tj.ilhom.trip.network.Resource
 import tj.ilhom.trip.ui.toPagingData
 import javax.inject.Inject

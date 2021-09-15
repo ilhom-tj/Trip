@@ -1,4 +1,4 @@
-package tj.ilhom.trip.ui.excursion.commentDialog
+package tj.ilhom.trip.ui.reviewBottomSheet
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import androidx.paging.PagingState
 import tj.ilhom.trip.Utils.getRefreshKey
 import tj.ilhom.trip.Utils.toLoadResult
 import tj.ilhom.trip.models.review.Review
-import tj.ilhom.trip.network.Repo
+import tj.ilhom.trip.network.repo.Repo
 import tj.ilhom.trip.network.Resource
 
 class ReviewDataSource(

@@ -94,8 +94,8 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                 }
 
                 if (excurse?.photos?.isNotEmpty() == true) {
-                    if (excurse.photos.size > 4) {
-                        val images = (0 until 4).map {
+                    if (excurse.photos.size > 5) {
+                        val images = (0 until 5).map {
                             excurse.photos[it]
                         }
                         imageSliderAdapter.submitList(images)

@@ -6,9 +6,8 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import tj.ilhom.trip.models.excurse.Excurse
-import tj.ilhom.trip.network.Repo
+import tj.ilhom.trip.network.repo.Repo
 import tj.ilhom.trip.network.Resource
-import javax.inject.Inject
 
 class ExcursionViewModel @AssistedInject constructor(
     @Assisted private val excursionId: Int,

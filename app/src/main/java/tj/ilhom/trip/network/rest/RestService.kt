@@ -1,4 +1,4 @@
-package tj.ilhom.trip.network
+package tj.ilhom.trip.network.rest
 
 import retrofit2.Response
 import retrofit2.http.GET
@@ -9,7 +9,7 @@ import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.review.Review
 
-interface API {
+interface RestService {
     @GET("/api/cities/")
     suspend fun getCities(
         @Query("page") page: Int,

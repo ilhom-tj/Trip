@@ -1,11 +1,11 @@
-package tj.ilhom.trip.ui.excursion.commentDialog
+package tj.ilhom.trip.ui.reviewBottomSheet
 
 import androidx.lifecycle.ViewModel
 import androidx.paging.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import tj.ilhom.trip.models.review.Review
-import tj.ilhom.trip.network.RepoImpl
+import tj.ilhom.trip.network.repo.RepoImpl
 import javax.inject.Inject
 
 @HiltViewModel

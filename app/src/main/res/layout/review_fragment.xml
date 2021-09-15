@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ui.excursion.commentDialog.ReviewFragment">
+    tools:context=".ui.reviewBottomSheet.ReviewFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_photo"
@@ -16,59 +16,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/reviewInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="13dp"
         android:background="@drawable/search_view_border"
-        app:layout_constraintBottom_toBottomOf="@+id/user_photo"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="Оставьте отзыв"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:paddingHorizontal="14dp"
+        android:textColor="#737373"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/user_photo"
-        app:layout_constraintTop_toTopOf="@+id/user_photo">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/search_view_border"
-            android:hint="Оставьте отзыв"
-            android:padding="14dp"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="16dp"
-            android:src="@drawable/send"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="16dp"
+        android:src="@drawable/send"
+        app:layout_constraintBottom_toBottomOf="@+id/reviewInput"
+        app:layout_constraintEnd_toEndOf="@+id/reviewInput"
+        app:layout_constraintTop_toTopOf="@+id/reviewInput"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:text="47 отзывов"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/user_photo"
-        app:layout_constraintTop_toBottomOf="@+id/user_photo" />
+        app:layout_constraintStart_toStartOf="@id/user_photo"
+        app:layout_constraintTop_toBottomOf="@id/reviewInput" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reviews"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

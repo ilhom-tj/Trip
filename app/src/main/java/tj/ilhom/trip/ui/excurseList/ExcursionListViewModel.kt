@@ -11,7 +11,7 @@ import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.excurse.Tag
 import tj.ilhom.trip.models.filter.FilterModel
-import tj.ilhom.trip.network.Repo
+import tj.ilhom.trip.network.repo.Repo
 import tj.ilhom.trip.ui.excurseList.dataSources.ExcureFilterDataSource
 import tj.ilhom.trip.ui.excurseList.dataSources.ExcursionDataSource
 import javax.inject.Inject

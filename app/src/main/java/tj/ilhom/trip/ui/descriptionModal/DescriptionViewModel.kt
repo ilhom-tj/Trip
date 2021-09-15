@@ -1,4 +1,4 @@
-package tj.ilhom.trip.ui.excursion.descriptionModal
+package tj.ilhom.trip.ui.descriptionModal
 
 import androidx.lifecycle.ViewModel
 

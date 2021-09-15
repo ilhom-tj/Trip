@@ -2,7 +2,7 @@ package tj.ilhom.trip.ui.excurseFilter
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import tj.ilhom.trip.network.RepoImpl
+import tj.ilhom.trip.network.repo.RepoImpl
 import javax.inject.Inject
 
 @HiltViewModel

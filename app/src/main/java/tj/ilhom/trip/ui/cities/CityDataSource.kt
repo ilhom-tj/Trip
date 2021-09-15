@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import tj.ilhom.trip.Utils.getRefreshKey
 import tj.ilhom.trip.models.city.City
-import tj.ilhom.trip.network.Repo
+import tj.ilhom.trip.network.repo.Repo
 import tj.ilhom.trip.Utils.toLoadResult
 
 class CityDataSource(

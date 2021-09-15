@@ -1,10 +1,11 @@
-package tj.ilhom.trip.network
+package tj.ilhom.trip.network.repo
 
 import tj.ilhom.trip.models.PagingResponse
 import tj.ilhom.trip.models.city.City
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.filter.FilterModel
 import tj.ilhom.trip.models.review.Review
+import tj.ilhom.trip.network.Resource
 
 
 interface Repo {

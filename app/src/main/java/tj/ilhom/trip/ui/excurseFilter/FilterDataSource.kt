@@ -6,7 +6,7 @@ import tj.ilhom.trip.Utils.getRefreshKey
 import tj.ilhom.trip.Utils.toLoadResult
 import tj.ilhom.trip.models.excurse.Excurse
 import tj.ilhom.trip.models.filter.FilterModel
-import tj.ilhom.trip.network.RepoImpl
+import tj.ilhom.trip.network.repo.RepoImpl
 
 class FilterDataSource(
     private val repo: RepoImpl,

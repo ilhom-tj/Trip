@@ -5,8 +5,7 @@ import androidx.paging.PagingState
 import tj.ilhom.trip.Utils.getRefreshKey
 import tj.ilhom.trip.Utils.toLoadResult
 import tj.ilhom.trip.models.excurse.Excurse
-import tj.ilhom.trip.network.Repo
-import tj.ilhom.trip.network.RepoImpl
+import tj.ilhom.trip.network.repo.Repo
 
 class ExcursionSearchDataSource(
     private val repo: Repo,
