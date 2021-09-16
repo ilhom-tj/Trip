@@ -11,13 +11,16 @@
     <TextView
 
         android:id="@+id/standard_label"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:maxLines="3"
         android:paddingBottom="5dp"
+        android:text="asfasfasfasfasafsafasfasfasfasfasfasfasfasf"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/standard_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,11 +29,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="3"
+        android:text="7474P"
         android:textColor="@color/black"
         android:textFontWeight="800"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/standard_label"
+        app:layout_constraintBaseline_toBaselineOf="@+id/standard_label"
         app:layout_constraintEnd_toEndOf="parent" />
 
 

@@ -125,12 +125,12 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                     }
                     else -> "₽"
                 }
-                perPersonAdapter = PerPersonAdapter(this,curency)
+                perPersonAdapter = PerPersonAdapter(curency)
                 binding.perPersons.layoutManager = LinearLayoutManager(requireContext())
                 binding.perPersons.adapter = perPersonAdapter
                 if (!excursion.price.per_person.isNullOrEmpty()) {
                     perPersonAdapter.setData(excursion.price.per_person)
-                } else if (excursion.price.per_group != null) {
+                } else {
                     val price =
                         excursion.price.per_group.value?.let { it1 ->
                             PerPerson(
@@ -140,10 +140,6 @@ class ExcursionFragment : Fragment(), PicturesAdapter.ImageEvents {
                             )
                         }
                     perPersonAdapter.setData(listOf(price!!))
-                } else {
-                    val price =
-                        PerPerson(0.0, excursion.price.unit_string, false, excurse.price.value)
-                    perPersonAdapter.setData(listOf(price))
                 }
                 binding.back.setOnClickListener {
                     findNavController().navigateUp()

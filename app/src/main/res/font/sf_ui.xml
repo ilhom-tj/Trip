@@ -13,5 +13,5 @@
     <font
         app:font="@font/sfui_text_heavy"
         app:fontStyle="normal"
-        app:fontWeight="800" />
+        app:fontWeight="900" />
 </font-family>
