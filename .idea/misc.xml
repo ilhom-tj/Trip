@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/filter_view_border.xml" value="0.38358974358974357" />
         <entry key="app/src/main/res/drawable-v24/price_view_border.xml" value="0.30092592592592593" />
         <entry key="app/src/main/res/drawable/box_radius_10.xml" value="0.38358974358974357" />
         <entry key="app/src/main/res/drawable/box_with_shadow.xml" value="0.38358974358974357" />

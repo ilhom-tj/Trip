@@ -456,7 +456,6 @@
                 android:id="@+id/per_persons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 app:layout_constraintStart_toStartOf="@+id/price_label"
                 app:layout_constraintTop_toBottomOf="@+id/price_label" />
 
@@ -464,8 +463,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="28dp"
                 android:background="@drawable/box_with_shadow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/photo_gallary"
@@ -517,18 +514,8 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="16dp"
-        android:fontFamily="@font/sf_ui"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
+        style="@style/TripButtonBlack"
         android:text="Забронировать"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:backgroundTint="#212121"
-        app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
