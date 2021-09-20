@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/rlHeaderCalendar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.archit.calendardaterangepicker.customviews.CustomTextView
+        android:id="@+id/tvYearTitle"
+        android:layout_width="wrap_content"
+        android:layout_gravity="start"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_ui"
+        android:tag="dateTitle"
+        android:layout_marginStart="10dp"
+        android:text="FEBRUARY 2014"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</FrameLayout>

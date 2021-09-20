@@ -1,55 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
-            app:startDestination="@id/citiesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/citiesFragment">
 
-    <fragment android:id="@+id/citiesFragment" android:name="tj.ilhom.trip.ui.cities.CitiesFragment"
-              android:label="cities_fragment" tools:layout="@layout/cities_fragment">
-        <action android:id="@+id/action_citiesFragment_to_excurseFragment2" app:destination="@id/excurseFragment"
-                app:enterAnim="@anim/nav_default_pop_enter_anim"/>
+    <fragment
+        android:id="@+id/citiesFragment"
+        android:name="tj.ilhom.trip.ui.cities.CitiesFragment"
+        android:label="cities_fragment"
+        tools:layout="@layout/cities_fragment">
+        <action
+            android:id="@+id/action_citiesFragment_to_excurseFragment2"
+            app:destination="@id/excurseFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
-    <fragment android:id="@+id/excurseFragment" android:name="tj.ilhom.trip.ui.excurseList.ExcursionListFragment"
-              android:label="excurse_fragment" tools:layout="@layout/excursion_list_fragment">
-        <argument android:name="city" app:argType="tj.ilhom.trip.models.city.City"/>
-        <action android:id="@+id/action_excurseFragment_to_excursionFilterFragment"
-                app:destination="@id/excursionFilterFragment"/>
-        <action android:id="@+id/action_excurseFragment_to_excursionFragment" app:destination="@id/excursionFragment"
-                app:enterAnim="@anim/nav_default_pop_enter_anim"/>
+    <fragment
+        android:id="@+id/excurseFragment"
+        android:name="tj.ilhom.trip.ui.excurseList.ExcursionListFragment"
+        android:label="excurse_fragment"
+        tools:layout="@layout/excursion_list_fragment">
+        <argument
+            android:name="city"
+            app:argType="tj.ilhom.trip.models.city.City" />
+        <action
+            android:id="@+id/action_excurseFragment_to_excursionFilterFragment"
+            app:destination="@id/excursionFilterFragment" />
+        <action
+            android:id="@+id/action_excurseFragment_to_excursionFragment"
+            app:destination="@id/excursionFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
-    <dialog android:id="@+id/excursionFilterFragment"
-            android:name="tj.ilhom.trip.ui.excurseFilter.ExcursionFilterFragment"
-            android:label="excursion_filter_fragment" tools:layout="@layout/excursion_filter_fragment">
-        <action android:id="@+id/action_excursionFilterFragment_to_excurseFragment"
-                app:destination="@id/excurseFragment"/>
-        <argument android:name="country" app:argType="tj.ilhom.trip.models.city.Country"/>
+    <dialog
+        android:id="@+id/excursionFilterFragment"
+        android:name="tj.ilhom.trip.ui.excurseFilter.ExcursionFilterFragment"
+        android:label="excursion_filter_fragment"
+        tools:layout="@layout/excursion_filter_fragment">
+        <action
+            android:id="@+id/action_excursionFilterFragment_to_excurseFragment"
+            app:destination="@id/excurseFragment" />
+        <argument
+            android:name="country"
+            app:argType="tj.ilhom.trip.models.city.Country" />
     </dialog>
-    <fragment android:id="@+id/excursionFragment" android:name="tj.ilhom.trip.ui.excursion.ExcursionFragment"
-              android:label="excursion_fragment" tools:layout="@layout/excursion_fragment">
-        <action android:id="@+id/action_excursionFragment_to_descriptionFragment"
-                app:destination="@id/descriptionFragment"/>
-        <action android:id="@+id/action_excursionFragment_to_reviewFragment" app:destination="@id/reviewFragment"/>
-        <action android:id="@+id/action_excursionFragment_to_photosFragment" app:destination="@id/photosFragment"/>
-        <deepLink android:id="@+id/deepLink" app:uri="experience.tripster.ru/experience/{id}"
-                  android:autoVerify="true"/>
-        <argument android:name="id" app:argType="integer"/>
-        <action android:id="@+id/action_excursionFragment_to_shareFragment" app:destination="@id/shareFragment"/>
+    <fragment
+        android:id="@+id/excursionFragment"
+        android:name="tj.ilhom.trip.ui.excursion.ExcursionFragment"
+        android:label="excursion_fragment"
+        tools:layout="@layout/excursion_fragment">
+        <action
+            android:id="@+id/action_excursionFragment_to_descriptionFragment"
+            app:destination="@id/descriptionFragment" />
+        <action
+            android:id="@+id/action_excursionFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment" />
+        <action
+            android:id="@+id/action_excursionFragment_to_photosFragment"
+            app:destination="@id/photosFragment" />
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:uri="experience.tripster.ru/experience/{id}" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_excursionFragment_to_shareFragment"
+            app:destination="@id/shareFragment" />
     </fragment>
-    <dialog android:id="@+id/descriptionFragment"
-              android:name="tj.ilhom.trip.ui.descriptionModal.DescriptionFragment"
-              android:label="description_fragment" tools:layout="@layout/description_fragment">
-        <argument android:name="excursion" app:argType="tj.ilhom.trip.models.excurse.Excurse"/>
+    <dialog
+        android:id="@+id/descriptionFragment"
+        android:name="tj.ilhom.trip.ui.descriptionModal.DescriptionFragment"
+        android:label="description_fragment"
+        tools:layout="@layout/description_fragment">
+        <argument
+            android:name="excursion"
+            app:argType="tj.ilhom.trip.models.excurse.Excurse" />
     </dialog>
-    <dialog android:id="@+id/reviewFragment" android:name="tj.ilhom.trip.ui.reviewBottomSheet.ReviewFragment"
-              android:label="review_fragment" tools:layout="@layout/review_fragment">
-        <argument android:name="excurseId" app:argType="integer"/>
+    <dialog
+        android:id="@+id/reviewFragment"
+        android:name="tj.ilhom.trip.ui.reviewBottomSheet.ReviewFragment"
+        android:label="review_fragment"
+        tools:layout="@layout/review_fragment">
+        <argument
+            android:name="excurseId"
+            app:argType="integer" />
     </dialog>
-    <fragment android:id="@+id/photosFragment" android:name="tj.ilhom.trip.ui.photosFragment.PhotosFragment"
-              android:label="photos_fragment" tools:layout="@layout/photos_fragment">
-        <argument android:name="photos" app:argType="tj.ilhom.trip.models.excurse.Photo[]"/>
+    <fragment
+        android:id="@+id/photosFragment"
+        android:name="tj.ilhom.trip.ui.photosFragment.PhotosFragment"
+        android:label="photos_fragment"
+        tools:layout="@layout/photos_fragment">
+        <argument
+            android:name="photos"
+            app:argType="tj.ilhom.trip.models.excurse.Photo[]" />
     </fragment>
-    <dialog android:id="@+id/shareFragment" android:name="tj.ilhom.trip.ui.excursion.share.ShareFragment"
-              android:label="fragment_share" tools:layout="@layout/fragment_share">
-        <argument android:name="excursion" app:argType="tj.ilhom.trip.models.excurse.Excurse"/>
+    <dialog
+        android:id="@+id/shareFragment"
+        android:name="tj.ilhom.trip.ui.excursion.share.ShareFragment"
+        android:label="fragment_share"
+        tools:layout="@layout/fragment_share">
+        <argument
+            android:name="excursion"
+            app:argType="tj.ilhom.trip.models.excurse.Excurse" />
     </dialog>
+    <dialog
+        android:id="@+id/calendarDialog"
+        android:name="tj.ilhom.trip.ui.excurseFilter.calendar.CalendarDialog"
+        android:label="CalendarDialog"
+        tools:layout="@layout/dialog_calendar"/>
 </navigation>

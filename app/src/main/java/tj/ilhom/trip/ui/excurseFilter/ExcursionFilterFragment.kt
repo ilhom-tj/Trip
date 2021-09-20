@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.innovattic.rangeseekbar.RangeSeekBar
 import dagger.hilt.android.AndroidEntryPoint
 import tj.ilhom.trip.R
@@ -179,29 +180,33 @@ class ExcursionFilterFragment : CBottomSheetDialogFragment() {
         isClickable = true
         isFocusable = false
 
-        val myCalendar = Calendar.getInstance()
-        val datePickerOnDataSetListener =
-            DatePickerDialog.OnDateSetListener { d, year, monthOfYear, dayOfMonth ->
-                myCalendar.set(Calendar.YEAR, year)
-                myCalendar.set(Calendar.MONTH, monthOfYear)
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                d.minDate = min.time
-                val sdf = SimpleDateFormat(format, Locale.UK)
-                setText(sdf.format(myCalendar.time))
-                val apiFormat = SimpleDateFormat("yyyy-MM-dd", Locale.UK)
-                val apiDate = apiFormat.format(myCalendar.time)
-                if (isFromDate) filter.startDate = apiDate
-                else filter.endDate = apiDate
-            }
+//        val myCalendar = Calendar.getInstance()
+//        val datePickerOnDataSetListener =
+//            DatePickerDialog.OnDateSetListener { d, year, monthOfYear, dayOfMonth ->
+//                myCalendar.set(Calendar.YEAR, year)
+//                myCalendar.set(Calendar.MONTH, monthOfYear)
+//                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+//                d.minDate = min.time
+//                val sdf = SimpleDateFormat(format, Locale.UK)
+//                setText(sdf.format(myCalendar.time))
+//                val apiFormat = SimpleDateFormat("yyyy-MM-dd", Locale.UK)
+//                val apiDate = apiFormat.format(myCalendar.time)
+//                if (isFromDate) filter.startDate = apiDate
+//                else filter.endDate = apiDate
+//            }
+
 
         setOnClickListener {
-            DatePickerDialog(
-                context, datePickerOnDataSetListener, myCalendar
-                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)
-            ).run {
-                show()
-            }
+
+            findNavController().navigate(R.id.calendarDialog)
+
+//            DatePickerDialog(
+//                context, datePickerOnDataSetListener, myCalendar
+//                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+//                myCalendar.get(Calendar.DAY_OF_MONTH)
+//            ).run {
+//                show()
+//            }
         }
     }
 
